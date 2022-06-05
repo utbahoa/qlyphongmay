@@ -17,10 +17,10 @@
                         <input type="hidden" name="danhsach_nguoiduyet" value="{{Auth::user()->name}}">
                         <div class="d-flex flex-wrap">
                             @foreach($list_computer as $key => $item)
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-2 mb-3">
                                 <div class="card h-100">
                                     <div>
-                                        <img class="card-img-top" src="{{asset('admin/img/computer.png')}}">
+                                        <img class="card-img-top" src="{{asset('admin/img/mycomputer.png')}}">
                                     </div>
                                     <div class="card-content h-100 text-center">
                                         <h5 class="mt-2" style="font-weight: bold">{{$item->may_ten}}</h5>

@@ -52,7 +52,14 @@ class AdminDanhSachDangKyController extends Controller
 
         Toastr::success('Đăng ký thành công', 'Thành công');
         return redirect()->route('admin.dangky.sinhvien.index');
-
-       
     }
+    //Giảng viên
+    public function index_gv() {
+        $page_title = 'Đăng ký giảng viên';
+        $user = User::all();
+        $danhsach = DanhSachDangKy::with('tiet', 'phanmem', 'phong')->where('quyen', '=', '3')->get();
+        return view('admin.dangky.giangvien.index', compact('page_title', 'user', 'danhsach'));
+    }
+
+    
 }

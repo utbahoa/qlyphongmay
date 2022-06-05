@@ -33,15 +33,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($may as $key => $item)
+                    @foreach($may as $key => $item)
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->may_ten}}</td>
                         <td>{{$item->phong->phong_ten}}</td>
                         <td>@if($item->may_tinhtrang == 1)
-                                Sử dụng được
+                            Sử dụng được
                             @else
-                                Hư hỏng
+                            Hư hỏng
                             @endif
                         </td>
                         <td>
@@ -53,20 +53,13 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach   
+                    @endforeach
                 </tbody>
             </table>
+
+            <div class=" col-sm-12 text-right text-center-xs mt-2">
+                <div class="pagination d-flex justify-content-center"> {{$may->links('paginationlinks')}}</div>
+            </div>
         </div>
     </div>
     @endsection
-
-
-
-
-
-
-
-
-
-
-    

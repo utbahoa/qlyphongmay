@@ -93,7 +93,7 @@
            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
                    <a class="collapse-item" href="{{route('admin.dangky.sinhvien.index')}}">Sinh viên</a>
-                   <a class="collapse-item" href="">Giảng viên</a>
+                   <a class="collapse-item" href="{{route('admin.dangky.giangvien.index')}}">Giảng viên</a>
                </div>
            </div>
        </li>

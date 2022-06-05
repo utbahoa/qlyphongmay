@@ -110,6 +110,12 @@ Route::namespace('Admin')->group(function () {
                         Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer'])->name('admin.dangky.sinhvien.get_computer');
                         Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer'])->name('admin.dangky.sinhvien.register_computer');
                     });
+
+                    Route::prefix('giangvien')->group(function () {
+                        Route::get('/', [AdminDanhSachDangKyController::class, 'index_gv'])->name('admin.dangky.giangvien.index');
+                        Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer'])->name('admin.dangky.giangvien.get_computer');
+                        Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer'])->name('admin.dangky.giangvien.register_computer');
+                    });
                 });
             });
            
