@@ -63,6 +63,7 @@ class StudentHomeController extends Controller
                $phanmem_id = $request->phanmem_id;
                $danhsach_thoigiandk = now();
                $danhsach_tinhtrang = 0;
+               $quyen = $request->quyen;
                $data = [
                    date_default_timezone_set('Asia/Ho_Chi_Minh'),
                    'user_id' => $user_id,
@@ -70,7 +71,8 @@ class StudentHomeController extends Controller
                    'phanmem_id' => $phanmem_id,
                    'phong_id' => $phong_check_id,
                    'danhsach_thoigiandk' =>  $danhsach_thoigiandk,
-                   'danhsach_tinhtrang' =>  $danhsach_tinhtrang
+                   'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
+                   'quyen' => $quyen
                ];
                $check_user = DanhSachDangKy::where('user_id', $user_id)->where('tiet_id', $tiet_id)->where('phong_id', $phong_check_id)->count();
                if($check_user == 0) {

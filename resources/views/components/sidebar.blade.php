@@ -133,6 +133,12 @@
                <span>Đăng ký máy</span>
            </a>
        </li>
+       <li class="nav-item">
+           <a class="nav-link" href="{{route('teacher.computer-register.register-history')}}">
+               <i class="fas fa-fw fa-table"></i>
+               <span>Xem kết quả đăng ký</span>
+           </a>
+       </li>
        @endcan
        <!-- Divi
        der -->

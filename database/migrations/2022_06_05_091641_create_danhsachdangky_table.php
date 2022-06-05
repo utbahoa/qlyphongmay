@@ -24,6 +24,7 @@ class CreateDanhsachdangkyTable extends Migration
             $table->integer('danhsach_tinhtrang');
             $table->string('danhsach_nguoiduyet')->nullable();
             $table->datetime('danhsach_thoigianduyet')->nullable();
+            $table->integer('quyen')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('tiet_id')->references('id')->on('tiet');

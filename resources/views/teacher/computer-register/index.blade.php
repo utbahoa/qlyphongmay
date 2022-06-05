@@ -33,6 +33,7 @@
                             <input type="number" min="1" name="danhsach_soluong" placeholder="Chọn số lượng" class="form-control">
                         </div>
                         <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
+                        <input type="hidden" name="quyen" class="quyen" value="{{Auth::user()->quyen_id}}">
                     </div>
                     <div class="d-flex flex-column register-footer mt-3">
                         <h5 class="text-primary">Chọn phòng</h5>

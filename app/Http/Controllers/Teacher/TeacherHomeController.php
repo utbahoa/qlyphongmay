@@ -62,6 +62,7 @@ class TeacherHomeController extends Controller
                $danhsach_soluong = $request->danhsach_soluong;
                $danhsach_thoigiandk = now();
                $danhsach_tinhtrang = 0;
+               $quyen = $request->quyen;
                $data = [
                    date_default_timezone_set('Asia/Ho_Chi_Minh'),
                    'user_id' => $user_id,
@@ -70,7 +71,8 @@ class TeacherHomeController extends Controller
                    'phong_id' => $phong_check_id,
                    'danhsach_soluong' => $danhsach_soluong,
                    'danhsach_thoigiandk' =>  $danhsach_thoigiandk,
-                   'danhsach_tinhtrang' =>  $danhsach_tinhtrang
+                   'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
+                   'quyen' => $quyen
                ];
                $check_user = DanhSachDangKy::where('user_id', $user_id)->where('tiet_id', $tiet_id)->where('phong_id', $phong_check_id)->count();
                if($check_user == 0) {
@@ -83,6 +85,17 @@ class TeacherHomeController extends Controller
                }
             }
         } 
+    }
+
+    public function registerHistory() {
+        $page_title = 'Lịch sử đăng ký';
+        $user_id =  Auth::user()->id;
+        $user = User::all();
+        $tiet = Tiet::all();
+        $phanmem = PhanMem::all();
+        $phong = Phong::all();
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phanmem', 'phong')->where('user_id', $user_id)->get();
+        return view('teacher.register-history.index', compact('page_title', 'user', 'tiet', 'phanmem', 'phong', 'danhsach'));
     }
 
 }
