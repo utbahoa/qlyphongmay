@@ -113,8 +113,8 @@ Route::namespace('Admin')->group(function () {
 
                     Route::prefix('giangvien')->group(function () {
                         Route::get('/', [AdminDanhSachDangKyController::class, 'index_gv'])->name('admin.dangky.giangvien.index');
-                        Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer'])->name('admin.dangky.giangvien.get_computer');
-                        Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer'])->name('admin.dangky.giangvien.register_computer');
+                        Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer_gv'])->name('admin.dangky.giangvien.get_computer');
+                        Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer_gv'])->name('admin.dangky.giangvien.register_computer');
                     });
                 });
             });
@@ -138,6 +138,7 @@ Route::namespace('Student')->group(function () {
                 Route::get('/', [StudentHomeController::class, 'computerRegister'])->name('student.computer-register.index');
                 Route::post('/register', [StudentHomeController::class, 'register'])->name('student.computer-register.register');
                 Route::get('/register-history', [StudentHomeController::class, 'registerHistory'])->name('student.computer-register.register-history');
+                Route::get('/register-result/{id}', [StudentHomeController::class, 'registerResult'])->name('student.computer-register.register-result');
             });
         });
     });

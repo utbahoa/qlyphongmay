@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChiTietDangKy;
 use App\Models\User;
 use App\Models\Khoa;
 use App\Models\Nganh;
@@ -94,7 +95,15 @@ class StudentHomeController extends Controller
         $tiet = Tiet::all();
         $phanmem = PhanMem::all();
         $phong = Phong::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phanmem', 'phong')->where('user_id', $user_id)->get();
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phanmem', 'phong', 'chitietdangky')
+                                  ->where('user_id', $user_id)
+                                  ->get();
         return view('student.register-history.index', compact('page_title', 'user', 'tiet', 'phanmem', 'phong', 'danhsach'));
+    }
+
+    public function registerResult($id) {
+        $page_title = 'Xem kết quả';
+        $chitiet = ChiTietDangKy::with('danhsachdangky', 'phong')->where('danhsach_id', $id)->get();
+        return view('student.register-result.index', compact('page_title', 'chitiet'));
     }
 }

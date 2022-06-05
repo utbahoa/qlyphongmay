@@ -18,6 +18,7 @@
                         <th>Tình trạng</th>   
                         <th>Người duyệt</th>
                         <th>Thời gian duyệt</th>
+                        <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>  
@@ -49,7 +50,12 @@
                             @else
                                 {{$item->danhsach_thoigianduyet}}
                             @endif
-                        </td>                  
+                        </td>     
+                        <td>
+                            <a href="{{route('student.computer-register.register-result', $item->id)}}" class="btn btn-success text-uppercase" title="Xem">
+                                Xem
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

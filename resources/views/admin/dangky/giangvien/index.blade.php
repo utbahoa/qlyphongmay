@@ -29,7 +29,7 @@
                         <td>{{$item->phong->phong_ten}}</td>  
                         <td>{{$item->danhsach_soluong}}</td>                      
                         <td>
-                            <a href="" class="btn btn-success text-uppercase" title="Sửa">
+                            <a href="{{route('admin.dangky.giangvien.get_computer', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
                                 Edit
                             </a>
                         </td>

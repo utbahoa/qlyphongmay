@@ -30,8 +30,15 @@ class DanhSachDangKy extends Model
         return $this->belongsTo(PhanMem::class, 'phanmem_id', 'id');
     }
 
+    //1-1
     public function phong()
     {
         return $this->belongsTo(Phong::class, 'phong_id', 'id');
+    }
+
+    //1-n
+    public function chitietdangky()
+    {
+        return $this->hasMany(ChiTietDangKy::class, 'danhsach_id', 'id');
     }
 }

@@ -14,4 +14,16 @@ class ChiTietDangKy extends Model
     ];
 
     protected $table = 'chitietdangky';
+
+    public function danhsachdangky() {
+        return $this->belongsTo(DanhSachDangKy::class, 'id', 'danhsach_id');
+    }
+
+    public function phong() {
+        return $this->belongsTo(Phong::class, 'phong_id', 'id');
+    }
+
+    public function may() {
+        return $this->belongsTo(May::class, 'may_id', 'id');
+    }
 }
