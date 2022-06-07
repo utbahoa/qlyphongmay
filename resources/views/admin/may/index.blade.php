@@ -38,7 +38,8 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->may_ten}}</td>
                         <td>{{$item->phong->phong_ten}}</td>
-                        <td>@if($item->may_tinhtrang == 1)
+                        <td>
+                            @if($item->may_tinhtrang == 1)
                                 <a href="{{route('admin.may.blocked', $item->id)}}" class="text-primary">Hoạt động</a>
                             @else
                                 <a href="{{route('admin.may.active', $item->id)}}" class="text-danger">Khóa</a>
