@@ -8,7 +8,7 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
-                <form action="{{route('admin.dangky.sinhvien.register_computer')}}" method="POST">
+                <form action="{{route('admin.dangky.giangvien.register_computer')}}" method="POST">
                     @csrf
                     <div class="d-flex flex-column register-footer mt-3">
                         <h5 class="text-primary">Chọn máy</h5>
@@ -26,7 +26,7 @@
                                         <h5 class="mt-2" style="font-weight: bold">{{$item->may_ten}}</h5>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <input type="checkbox" name="may_id" class="may_id_{{$item->id}}" value="{{$item->id}}">
+                                        <input type="checkbox" name="may_id[]" class="may_id_{{$item->id}}" value="{{$item->id}}">
                                     </div>
                                 </div>
                             </div>

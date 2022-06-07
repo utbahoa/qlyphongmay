@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($may as $key => $item)
+                    @foreach($may as $key => $item)
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->may_ten}}</td>
@@ -43,7 +43,7 @@
                                 <a href="{{route('admin.may.blocked', $item->id)}}" class="text-primary">Hoạt động</a>
                             @else
                                 <a href="{{route('admin.may.active', $item->id)}}" class="text-danger">Khóa</a>
-                            @endif
+                                @endif
                         </td>
                         <td>
                             <a href="" class="btn btn-success text-uppercase" title="Sửa">
@@ -54,20 +54,13 @@
                             </a>
                         </td>
                     </tr>
-                    @endforeach   
+                    @endforeach
                 </tbody>
             </table>
+
+            <div class=" col-sm-12 text-right text-center-xs mt-2">
+                <div class="pagination d-flex justify-content-center"> {{$may->links('paginationlinks')}}</div>
+            </div>
         </div>
     </div>
     @endsection
-
-
-
-
-
-
-
-
-
-
-    

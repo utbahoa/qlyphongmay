@@ -10,7 +10,7 @@ class DanhSachDangKy extends Model
     use HasFactory;
     protected $fillable = [
         'user_id', 'tiet_id', 'phanmem_id', 'phong_id', 'danhsach_soluong', 'danhsach_thoigiandk', 'danhsach_tinhtrang',
-        'danhsach_nguoiduyet', 'danhsach_thoigianduyet'
+        'danhsach_nguoiduyet', 'danhsach_thoigianduyet', 'quyen', 'danhsach_thoigiansd'
     ];
 
     protected $table = 'danhsachdangky';
@@ -30,8 +30,15 @@ class DanhSachDangKy extends Model
         return $this->belongsTo(PhanMem::class, 'phanmem_id', 'id');
     }
 
+    //1-1
     public function phong()
     {
         return $this->belongsTo(Phong::class, 'phong_id', 'id');
+    }
+
+    //1-n
+    public function chitietdangky()
+    {
+        return $this->hasMany(ChiTietDangKy::class, 'danhsach_id', 'id');
     }
 }

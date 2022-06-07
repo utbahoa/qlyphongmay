@@ -71,6 +71,11 @@
                <span>Quản lý lớp</span></a>
        </li>
        <li class="nav-item">
+           <a class="nav-link" href="{{route('admin.monhoc.index')}}">
+               <i class="fas fa-fw fa-table"></i>
+               <span>Quản lý Môn học</span></a>
+       </li>
+       <li class="nav-item">
            <a class="nav-link" href="{{route('admin.nganh.index')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Quản lý Ngành</span></a>
@@ -93,7 +98,7 @@
            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                <div class="bg-white py-2 collapse-inner rounded">
                    <a class="collapse-item" href="{{route('admin.dangky.sinhvien.index')}}">Sinh viên</a>
-                   <a class="collapse-item" href="">Giảng viên</a>
+                   <a class="collapse-item" href="{{route('admin.dangky.giangvien.index')}}">Giảng viên</a>
                </div>
            </div>
        </li>
@@ -131,6 +136,12 @@
            <a class="nav-link" href="{{route('teacher.computer-register.index')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Đăng ký máy</span>
+           </a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="{{route('teacher.computer-register.register-history')}}">
+               <i class="fas fa-fw fa-table"></i>
+               <span>Xem kết quả đăng ký</span>
            </a>
        </li>
        @endcan

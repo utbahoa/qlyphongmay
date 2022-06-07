@@ -36,11 +36,11 @@ class LoginController extends Controller
             return redirect()->route('student.home');
         }else if(Auth::attempt(['email'=>$request->email, 'password'=>$request->password]) && Auth::user()->quyen_id == 3){
             Toastr::success('Đăng nhập thành công', 'Thành công');
-            return redirect()->route('student.home');
+            return redirect()->route('teacher.home');
         }
         //Đăng nhập thất bại
         Auth::logout();
-        Toastr::error('Đăng nhập thất bại', 'Thất bại');
+        Toastr::error('Sai email hoặc mật khẩu', 'Thất bại');
         return redirect()->back();
     }
 

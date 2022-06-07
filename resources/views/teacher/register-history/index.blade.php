@@ -10,19 +10,20 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên sinh viên</th>   
-                        <th>Tiết</th>   
-                        <th>Phần mềm</th>   
-                        <th>Phòng</th>   
+                        <th>Tên giảng viên</th>
+                        <th>Tiết</th>
+                        <th>Phần mềm</th>
+                        <th>Phòng</th>
+                        <th>Số lượng máy</th>
                         <th>Thời gian đăng ký</th>
-                        <th>Thời gian sử dụng </th>      
-                        <th>Tình trạng</th>   
+                        <th>Tình trạng</th>
                         <th>Người duyệt</th>
                         <th>Thời gian duyệt</th>
-                        <th>Hành động</th>
                     </tr>
                 </thead>
-                <tbody>  
+                <tbody>
+
+                    <tr>
                     @foreach($danhsach as $key => $item)
                     <tr>
                         <td>{{$item->id}}</td>
@@ -30,8 +31,8 @@
                         <td>{{$item->tiet->tiet_ten}}</td>   
                         <td>{{$item->phanmem->phanmem_ten}}</td>                      
                         <td>{{$item->phong->phong_ten}}</td>
-                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>
-                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td> 
+                        <td>{{$item->danhsach_soluong}}</td>
+                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>    
                         <td>
                             @if($item->danhsach_tinhtrang == 0)
                                 Chưa duyệt
@@ -52,16 +53,12 @@
                             @else
                                 {{$item->danhsach_thoigianduyet}}
                             @endif
-                        </td>     
-                        <td>
-                            <a href="{{route('student.computer-register.register-result', $item->id)}}" class="btn btn-success text-uppercase" title="Xem">
-                                Xem
-                            </a>
-                        </td>
+                        </td>                  
                     </tr>
                     @endforeach
+                    </tr>
                 </tbody>
             </table>
+        </div>
     </div>
-</div>
-@endsection
+    @endsection

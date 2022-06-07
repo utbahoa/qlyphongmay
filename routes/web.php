@@ -9,10 +9,12 @@ use App\Http\Controllers\Admin\AdminPhongController;
 use App\Http\Controllers\Admin\AdminPhanMemController;
 use App\Http\Controllers\Admin\AdminMayPhanMemController;
 use App\Http\Controllers\Admin\AdminKhoaController;
+use App\Http\Controllers\Admin\AdminMonHocController;
 use App\Http\Controllers\Admin\AdminLopController;
 use App\Http\Controllers\Admin\AdminNganhController;
 use App\Http\Controllers\Admin\AdminThongBaoController;
 use App\Http\Controllers\Admin\AdminDanhSachDangKyController;
+
 
 
 use App\Http\Controllers\Student\StudentHomeController;
@@ -82,7 +84,6 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/delete/{id}', [AdminKhoaController::class, 'destroy'])->name('admin.khoa.delete');
             });
 
-
             Route::prefix('lop')->group(function () {
                 Route::get('/', [AdminLopController::class, 'index'])->name('admin.lop.index');
                 Route::get('/create', [AdminLopController::class, 'create'])->name('admin.lop.create');
@@ -101,6 +102,15 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/delete/{id}', [AdminNganhController::class, 'destroy'])->name('admin.nganh.destroy');
             });
 
+            Route::prefix('monhoc')->group(function () {
+                Route::get('/', [AdminMonHocController::class, 'index'])->name('admin.monhoc.index');
+                Route::get('/create', [AdminMonHocController::class, 'create'])->name('admin.monhoc.create');
+                Route::post('/store', [AdminMonHocController::class, 'store'])->name('admin.monhoc.store');
+                Route::get('/edit/{id}', [AdminMonHocController::class, 'edit'])->name('admin.monhoc.edit');
+                Route::post('/update/{id}', [AdminMonHocController::class, 'update'])->name('admin.monhoc.update');
+                Route::get('/delete/{id}', [AdminMonHocController::class, 'destroy'])->name('admin.monhoc.delete');
+            });
+
             Route::prefix('thongbao')->group(function () {
                 Route::get('/', [AdminThongBaoController::class, 'index'])->name('admin.thongbao.index');
             });
@@ -111,6 +121,12 @@ Route::namespace('Admin')->group(function () {
                         Route::get('/', [AdminDanhSachDangKyController::class, 'index'])->name('admin.dangky.sinhvien.index');
                         Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer'])->name('admin.dangky.sinhvien.get_computer');
                         Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer'])->name('admin.dangky.sinhvien.register_computer');
+                    });
+
+                    Route::prefix('giangvien')->group(function () {
+                        Route::get('/', [AdminDanhSachDangKyController::class, 'index_gv'])->name('admin.dangky.giangvien.index');
+                        Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer_gv'])->name('admin.dangky.giangvien.get_computer');
+                        Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer_gv'])->name('admin.dangky.giangvien.register_computer');
                     });
                 });
             
@@ -134,6 +150,7 @@ Route::namespace('Student')->group(function () {
                 Route::get('/', [StudentHomeController::class, 'computerRegister'])->name('student.computer-register.index');
                 Route::post('/register', [StudentHomeController::class, 'register'])->name('student.computer-register.register');
                 Route::get('/register-history', [StudentHomeController::class, 'registerHistory'])->name('student.computer-register.register-history');
+                Route::get('/register-result/{id}', [StudentHomeController::class, 'registerResult'])->name('student.computer-register.register-result');
             });
         });
     });
