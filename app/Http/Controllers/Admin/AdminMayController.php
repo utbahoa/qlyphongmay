@@ -43,4 +43,20 @@ class AdminMayController extends Controller
         Toastr::success('Thêm máy thành công', 'Thành công');
         return redirect()->route('admin.may.index');
     }
+
+    public function blocked($id) {
+        May::find($id)->update([
+            'may_tinhtrang' => 0
+        ]);
+        Toastr::success('Khóa máy thành công', 'Thành công');
+        return redirect()->route('admin.may.index');
+    }
+
+    public function active($id) {
+        May::find($id)->update([
+            'may_tinhtrang' => 1
+        ]);
+        Toastr::success('Mở khóa máy thành công', 'Thành công');
+        return redirect()->route('admin.may.index');
+    }
 }
