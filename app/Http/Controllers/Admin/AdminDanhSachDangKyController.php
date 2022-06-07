@@ -47,6 +47,7 @@ class AdminDanhSachDangKyController extends Controller
 
         //Lấy ra danh sách máy
         $list_computer = May::where('phong_id', $phong_id)->take($soluongduocdangky)->get();
+
         return view('admin.dangky.sinhvien.list_computer', compact('page_title', 'danhsach', 'danhsach_id', 'phong_id', 'tiet_id',  'ngay',
         'list_computer', 'phong', 'phong_tongsoluong', 'phong_ten', 'thoikhoabieu', 'soluongmaysudung'));
     }
@@ -58,10 +59,14 @@ class AdminDanhSachDangKyController extends Controller
         if($check_register == 0) {
             $danhsach_id = $request->danhsach_id;
             $phong_id = $request->phong_id;
+            $tiet_id = $request->tiet_id;
+            $thoigiansd = $request->thoigiansd;
             $may_id = $request->may_id;
             $data = [
                 'danhsach_id' => $danhsach_id,
                 'phong_id' => $phong_id,
+                'tiet_id' => $tiet_id,
+                'thoigiansd' => $thoigiansd,
                 'may_id' => $may_id,            
             ];
             ChiTietDangKy::create($data);
@@ -74,6 +79,7 @@ class AdminDanhSachDangKyController extends Controller
                 'danhsach_thoigianduyet' => now()
             ]);
     
+            
             Toastr::success('Đăng ký thành công', 'Thành công');
             return redirect()->route('admin.dangky.sinhvien.index');
         }

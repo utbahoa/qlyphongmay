@@ -16,10 +16,13 @@ class CreateChitietdangkyTable extends Migration
         Schema::create('chitietdangky', function (Blueprint $table) {
             $table->unsignedBigInteger('danhsach_id');
             $table->unsignedBigInteger('phong_id');
+            $table->unsignedBigInteger('tiet_id');
             $table->unsignedBigInteger('may_id'); 
+            $table->date('thoigiansd');
 
             $table->foreign('danhsach_id')->references('id')->on('danhsachdangky');
             $table->foreign('phong_id')->references('id')->on('phong');
+            $table->foreign('tiet_id')->references('id')->on('tiet');
             $table->foreign('may_id')->references('id')->on('may');
 
             $table->primary(['danhsach_id', 'phong_id', 'may_id']);

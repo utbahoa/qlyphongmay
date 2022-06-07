@@ -16,7 +16,10 @@
                         <h5 class="text-primary">Chọn máy</h5>
                         <input type="hidden" name="danhsach_id" value="{{$danhsach_id}}">
                         <input type="hidden" name="phong_id" value="{{$phong_id}}">
+                        <input type="hidden" name="tiet_id" value="{{$tiet_id}}">
+                        <input type="hidden" name="thoigiansd" value="{{$ngay}}">
                         <input type="hidden" name="danhsach_nguoiduyet" value="{{Auth::user()->name}}">
+                        <input type="hidden" name="soluongmaysudung" value="{{$soluongmaysudung}}">
                         <div class="d-flex flex-wrap">
                             @foreach($list_computer as $key => $item)
                             <div class="col-md-2 mb-3">

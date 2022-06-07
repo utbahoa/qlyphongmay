@@ -10,7 +10,7 @@ class ChiTietDangKy extends Model
     use HasFactory;
 
     protected $fillable = [
-        'danhsach_id','phong_id', 'may_id', 
+        'danhsach_id','phong_id', 'tiet_id', 'may_id', 'thoigiansd' 
     ];
 
     protected $table = 'chitietdangky';
