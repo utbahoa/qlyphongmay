@@ -23,7 +23,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        
                         <div class="d-flex flex-column mr-4">
                             <h5 class="text-primary">Phần mềm</h5>
                             <select name="phanmem_id" id="phanmem_id" class="form-control">
