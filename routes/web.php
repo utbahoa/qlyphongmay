@@ -49,6 +49,8 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/edit/{id}', [AdminMayController::class, 'edit'])->name('admin.may.edit');
                 Route::post('/update/{id}', [AdminMayController::class, 'update'])->name('admin.may.update');
                 Route::get('/delete/{id}', [AdminMayController::class, 'delete'])->name('admin.may.delete');
+                Route::get('/blocked/{id}', [AdminMayController::class, 'blocked'])->name('admin.may.blocked');
+                Route::get('/active/{id}', [AdminMayController::class, 'active'])->name('admin.may.active');
             });
 
             Route::prefix('phong')->group(function () {
@@ -113,7 +115,7 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/', [AdminThongBaoController::class, 'index'])->name('admin.thongbao.index');
             });
 
-            Route::middleware('auth')->group(function() {
+            
                 Route::prefix('dangky')->group(function () {
                     Route::prefix('sinhvien')->group(function () {
                         Route::get('/', [AdminDanhSachDangKyController::class, 'index'])->name('admin.dangky.sinhvien.index');
@@ -127,7 +129,7 @@ Route::namespace('Admin')->group(function () {
                         Route::post('/dangkymay', [AdminDanhSachDangKyController::class, 'registerComputer_gv'])->name('admin.dangky.giangvien.register_computer');
                     });
                 });
-            });
+            
            
         });
     });

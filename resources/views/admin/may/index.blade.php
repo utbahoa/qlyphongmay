@@ -38,11 +38,12 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->may_ten}}</td>
                         <td>{{$item->phong->phong_ten}}</td>
-                        <td>@if($item->may_tinhtrang == 1)
-                            Sử dụng được
+                        <td>
+                            @if($item->may_tinhtrang == 1)
+                                <a href="{{route('admin.may.blocked', $item->id)}}" class="text-primary">Hoạt động</a>
                             @else
-                            Hư hỏng
-                            @endif
+                                <a href="{{route('admin.may.active', $item->id)}}" class="text-danger">Khóa</a>
+                                @endif
                         </td>
                         <td>
                             <a href="" class="btn btn-success text-uppercase" title="Sửa">

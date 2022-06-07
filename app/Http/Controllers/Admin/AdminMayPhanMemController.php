@@ -16,6 +16,5 @@ class AdminMayPhanMemController extends Controller
         $may_phanmem = MayPhanMem::with('may','phanmem')->get();
         return view('admin.may_phanmem.index', compact('page_title', 'may', 'phanmem','may_phanmem'));      
     }
-    
 }
 
