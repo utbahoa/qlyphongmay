@@ -43,4 +43,6 @@ class AdminMayController extends Controller
         Toastr::success('Thêm máy thành công', 'Thành công');
         return redirect()->route('admin.may.index');
     }
+
+    
 }
