@@ -12,6 +12,7 @@ use App\Models\PhanMem;
 use App\Models\Tiet;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
+use App\Models\ThoiKhoaBieu;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -28,12 +29,12 @@ class StudentHomeController extends Controller
     {
         $page_title = 'Thông tin sinh viên';
         $student_id = Auth::user()->id;
-        //dd($student_id);
         $lop = Lop::with('nganh')->orderBy('id', 'asc')->get();
         $nganh = Nganh::with('khoa')->orderBy('id', 'asc')->get();
         $khoa = Khoa::orderBy('id', 'asc')->get();
         $student = User::where('id', $student_id)->with('lop')->first();
-        // dd($student);
+        //Lấy lịch học sinh viên
+
         return view('student.information.index', compact('page_title', 'lop', 'nganh', 'khoa', 'student'));
     }
 
@@ -51,11 +52,16 @@ class StudentHomeController extends Controller
         $tiet = Tiet::orderBy('id', 'asc')->get();
         $phanmem = PhanMem::orderBy('id', 'asc')->get();
         $phong = Phong::orderBy('id', 'asc')->get();
-        return view('student.computer-register.index', compact('page_title', 'tiet', 'phanmem', 'phong'));
+
+        $student_id = Auth::user()->id;
+        $thoikhoabieu = ThoiKhoaBieu::where('user_id', $student_id)->get();
+
+        return view('student.computer-register.index', compact('page_title', 'tiet', 'phanmem', 'phong', 'thoikhoabieu'));
     }
 
     public function register(Request $request)
     {
+        //Check chỉ cho đăng ký 1 phòng
         $check_phong = $request->phong_id;
         if (count($check_phong) > 1) {
             Toastr::error('Sinh viên chỉ được đăng ký một phòng', 'Thất bại');
@@ -79,13 +85,39 @@ class StudentHomeController extends Controller
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
-                $check_user = DanhSachDangKy::where('user_id', $user_id)->where('tiet_id', $tiet_id)->where('phong_id', $phong_check_id)->count();
-                if ($check_user == 0) {
-                    DanhSachDangKy::create($data);
-                    Toastr::success('Đăng ký thành công', 'Thành công');
-                    return redirect()->route('student.computer-register.index');
+                //Check thời khóa biểu xem cấn lịch học không
+                $student_id = Auth::user()->id;
+                $check_thoikhoabieu = ThoiKhoaBieu::where('user_id', $student_id)
+                    ->where('ngay', $request->danhsach_thoigiansd)
+                    ->where('phong_id', $request->phong_id)
+                    ->where('tiet_id', $request->tiet_id)->count();
+                if ($check_thoikhoabieu == 0) {
+                    //Ko cho đăng ký cùng tiết cùng ngày đang học
+                    $check_trungtiet = ThoiKhoaBieu::where('user_id', $student_id)
+                        ->where('ngay', $request->danhsach_thoigiansd)
+                        ->where('tiet_id', $request->tiet_id)
+                        ->count();
+                    if ($check_trungtiet == 0) {
+                        //Check sinh viên đã đăng ký chưa
+                        $check_user = DanhSachDangKy::where('user_id', $user_id)
+                            ->where('tiet_id', $tiet_id)
+                            ->where('phong_id', $phong_check_id)
+                            ->count();
+                        if ($check_user == 0) {
+                            DanhSachDangKy::create($data);
+                            Toastr::success('Đăng ký thành công', 'Thành công');
+                            return redirect()->route('student.computer-register.index');
+                        } else {
+                            Toastr::error('Sinh viên đã đăng ký', 'Thất bại');
+                            return redirect()->back();
+                        }
+                    }
+                    else{
+                        Toastr::error('Không được đăng ký trùng tiết cùng ngày', 'Thất bại');
+                        return redirect()->back();
+                    }
                 } else {
-                    Toastr::error('Sinh viên đã đăng ký', 'Thất bại');
+                    Toastr::error('Cấn lịch', 'Thất bại');
                     return redirect()->back();
                 }
             }
