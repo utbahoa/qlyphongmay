@@ -14,7 +14,7 @@ class MayPhanMem extends Model
 
     protected $table = 'may_phanmem';
 
-    
+
     public function phanmem() {
         return $this->belongsTo(PhanMem::class, 'phanmem_id', 'id');
     }

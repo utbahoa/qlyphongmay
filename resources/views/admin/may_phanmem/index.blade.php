@@ -30,18 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($may_phanmem as $key => $item)
-                    <tr>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->may_id}}</td>
-                        <td>{{$item->phanmem_id}}</td>
-                        <td>
-                            <a href="" class="btn btn-success text-uppercase" title="Sửa">
-                            Edit
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
+                  
                 </tbody>
             </table>
     </div>
