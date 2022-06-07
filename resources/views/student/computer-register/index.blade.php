@@ -11,6 +11,11 @@
                     @csrf
 
                     <div class="d-flex register-header">
+
+                        <div class="d-flex flex-column mr-4">
+                            <h5 class="text-primary">Chọn ngày sử dụng</h5>
+                            <input type="date" name="dachsach_thoigiansd" class="danhsach_thoigiansd">
+                        </div>
                         <div class="d-flex flex-column mr-4">
                             <h5 class="text-primary">Tiết học</h5>
                             <select name="tiet_id" id="tiet_id" class="form-control">
@@ -20,7 +25,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="d-flex flex-column">
+                        
+                        <div class="d-flex flex-column mr-4">
                             <h5 class="text-primary">Phần mềm</h5>
                             <select name="phanmem_id" id="phanmem_id" class="form-control">
                                 <option selected disabled>----------Chọn phần mềm----------</option>
@@ -29,6 +35,8 @@
                                 @endforeach
                             </select>
                         </div>
+                       
+                        
                         <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
                         <input type="hidden" name="quyen" class="quyen" value="{{Auth::user()->quyen_id}}">
                     </div>

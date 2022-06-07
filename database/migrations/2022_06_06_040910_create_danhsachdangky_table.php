@@ -21,6 +21,7 @@ class CreateDanhsachdangkyTable extends Migration
             $table->unsignedBigInteger('phong_id');
             $table->integer('danhsach_soluong')->nullable();
             $table->datetime('danhsach_thoigiandk')->nullable();
+            $table->date('danhsach_thoigiansd')->nullable();
             $table->integer('danhsach_tinhtrang');
             $table->string('danhsach_nguoiduyet')->nullable();
             $table->datetime('danhsach_thoigianduyet')->nullable();

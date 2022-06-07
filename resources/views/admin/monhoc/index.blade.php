@@ -2,7 +2,7 @@
 @section('page_content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">Quản lý khoa</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">Quản lý môn học</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -11,11 +11,11 @@
                     <div>
                         <form action="" method="GET">
                             @csrf
-                            <div class="search-box d-flex">
+                            <div class="search-box d-flex">                           
                             </div>
                         </form>
                     </div>
-                    <a href="{{route('admin.khoa.create')}}" class="btn btn-primary text-uppercase" title="Thêm">
+                    <a href="{{route('admin.monhoc.create')}}" class="btn btn-primary text-uppercase" title="Thêm">
                        Thêm
                     </a>
                 </div>
@@ -24,20 +24,20 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tên khoa</th>                       
+                        <th>Tên môn học</th>                       
                         <th class="col-md-2">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>  
-                    @foreach ($khoa as $item)               
+                    @foreach ($monhoc as $item)               
                     <tr>
                         <td>{{$item->id}}</td>
-                        <td>{{$item->khoa_ten}}</td>                        
+                        <td>{{$item->monhoc_ten}}</td>                        
                         <td>
-                            <a href="{{route('admin.khoa.edit', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
+                            <a href="{{route('admin.monhoc.edit', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
                             Edit
                             </a>
-                            <a href="{{route('admin.khoa.delete', $item->id)}}" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa khoa này không?')">
+                            <a href="{{route('admin.monhoc.delete', $item->id)}}" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa môn học này không?')">
                             Delete
                             </a>
                         </td>

@@ -26,4 +26,5 @@ class ChiTietDangKy extends Model
     public function may() {
         return $this->belongsTo(May::class, 'may_id', 'id');
     }
+
 }

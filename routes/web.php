@@ -9,10 +9,12 @@ use App\Http\Controllers\Admin\AdminPhongController;
 use App\Http\Controllers\Admin\AdminPhanMemController;
 use App\Http\Controllers\Admin\AdminMayPhanMemController;
 use App\Http\Controllers\Admin\AdminKhoaController;
+use App\Http\Controllers\Admin\AdminMonHocController;
 use App\Http\Controllers\Admin\AdminLopController;
 use App\Http\Controllers\Admin\AdminNganhController;
 use App\Http\Controllers\Admin\AdminThongBaoController;
 use App\Http\Controllers\Admin\AdminDanhSachDangKyController;
+
 
 
 use App\Http\Controllers\Student\StudentHomeController;
@@ -80,7 +82,6 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/delete/{id}', [AdminKhoaController::class, 'destroy'])->name('admin.khoa.delete');
             });
 
-
             Route::prefix('lop')->group(function () {
                 Route::get('/', [AdminLopController::class, 'index'])->name('admin.lop.index');
                 Route::get('/create', [AdminLopController::class, 'create'])->name('admin.lop.create');
@@ -97,6 +98,15 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/edit/{id}', [AdminNganhController::class, 'edit'])->name('admin.nganh.edit');
                 Route::post('/update/{id}', [AdminNganhController::class, 'update'])->name('admin.nganh.update');
                 Route::get('/delete/{id}', [AdminNganhController::class, 'destroy'])->name('admin.nganh.destroy');
+            });
+
+            Route::prefix('monhoc')->group(function () {
+                Route::get('/', [AdminMonHocController::class, 'index'])->name('admin.monhoc.index');
+                Route::get('/create', [AdminMonHocController::class, 'create'])->name('admin.monhoc.create');
+                Route::post('/store', [AdminMonHocController::class, 'store'])->name('admin.monhoc.store');
+                Route::get('/edit/{id}', [AdminMonHocController::class, 'edit'])->name('admin.monhoc.edit');
+                Route::post('/update/{id}', [AdminMonHocController::class, 'update'])->name('admin.monhoc.update');
+                Route::get('/delete/{id}', [AdminMonHocController::class, 'destroy'])->name('admin.monhoc.delete');
             });
 
             Route::prefix('thongbao')->group(function () {

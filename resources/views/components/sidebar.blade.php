@@ -71,6 +71,11 @@
                <span>Quản lý lớp</span></a>
        </li>
        <li class="nav-item">
+           <a class="nav-link" href="{{route('admin.monhoc.index')}}">
+               <i class="fas fa-fw fa-table"></i>
+               <span>Quản lý Môn học</span></a>
+       </li>
+       <li class="nav-item">
            <a class="nav-link" href="{{route('admin.nganh.index')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Quản lý Ngành</span></a>
