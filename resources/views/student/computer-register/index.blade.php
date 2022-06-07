@@ -9,12 +9,10 @@
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
                 <form action="{{route('student.computer-register.register')}}" method="POST">
                     @csrf
-
                     <div class="d-flex register-header">
-
                         <div class="d-flex flex-column mr-4">
                             <h5 class="text-primary">Chọn ngày sử dụng</h5>
-                            <input type="date" name="dachsach_thoigiansd" class="danhsach_thoigiansd">
+                            <input type="date" name="danhsach_thoigiansd" class="danhsach_thoigiansd form-control">    
                         </div>
                         <div class="d-flex flex-column mr-4">
                             <h5 class="text-primary">Tiết học</h5>
@@ -35,8 +33,6 @@
                                 @endforeach
                             </select>
                         </div>
-                       
-                        
                         <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
                         <input type="hidden" name="quyen" class="quyen" value="{{Auth::user()->quyen_id}}">
                     </div>

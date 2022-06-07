@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class DanhSachDangKy extends Model
 {
     use HasFactory;
+    public $timestamps = true;
     protected $fillable = [
-        'user_id', 'tiet_id', 'phanmem_id', 'phong_id', 'danhsach_soluong', 'danhsach_thoigiandk', 'danhsach_tinhtrang',
-        'danhsach_nguoiduyet', 'danhsach_thoigianduyet', 'quyen', 'danhsach_thoigiansd'
+        'user_id', 'tiet_id', 'phanmem_id', 'phong_id', 'danhsach_soluong', 'danhsach_thoigiansd',
+        'danhsach_tinhtrang', 'danhsach_nguoiduyet', 'danhsach_thoigianduyet', 'quyen', 
     ];
 
     protected $table = 'danhsachdangky';

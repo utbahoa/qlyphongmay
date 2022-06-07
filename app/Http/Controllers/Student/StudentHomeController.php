@@ -66,8 +66,7 @@ class StudentHomeController extends Controller
                 $user_id = $request->user_id;
                 $tiet_id = $request->tiet_id;
                 $phanmem_id = $request->phanmem_id;
-                $danhsach_thoigiandk = now();
-                $danhsash_thoigiansd = now();
+                $danhsach_thoigiansd = $request->danhsach_thoigiansd;
                 $danhsach_tinhtrang = 0;
                 $quyen = $request->quyen;
                 $data = [
@@ -76,8 +75,7 @@ class StudentHomeController extends Controller
                     'tiet_id' => $tiet_id,
                     'phanmem_id' => $phanmem_id,
                     'phong_id' => $phong_check_id,
-                    'danhsach_thoigiandk' =>  $danhsach_thoigiandk,
-                    'danhsach_thoigiansd' =>  $danhsash_thoigiansd,
+                    'danhsach_thoigiansd' =>  $danhsach_thoigiansd,
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
