@@ -9,8 +9,10 @@ use App\Models\May;
 use App\Models\Tiet;
 use App\Models\DanhSachDangKy;
 use App\Models\ChiTietDangKy;
+use App\Models\ThoiKhoaBieu;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class AdminDanhSachDangKyController extends Controller
 {
@@ -27,8 +29,26 @@ class AdminDanhSachDangKyController extends Controller
         $danhsach = DanhSachDangKy::where('id', $id)->first();
         $danhsach_id = $danhsach->id;
         $phong_id = $danhsach->phong_id;
-        $list_computer = May::where('phong_id', $phong_id)->get();
-        return view('admin.dangky.sinhvien.list_computer', compact('page_title', 'danhsach', 'danhsach_id', 'phong_id', 'list_computer'));
+        $tiet_id = $danhsach->tiet_id;
+        $ngay= $danhsach->danhsach_thoigiansd;
+        $user_id = $danhsach->user_id;
+
+        //Lấy ra số lượng máy cả phòng
+        $phong = Phong::where('id', $phong_id)->first();
+        $phong_tongsoluong = $phong->phong_soluong;
+        $phong_ten = $phong->phong_ten;
+
+        //Lấy ra số máy đăng ký theo lịch đaotao
+        $thoikhoabieu = ThoiKhoaBieu::where('phong_id', $phong_id)->where('ngay', $ngay)->where('tiet_id', $tiet_id)->first();
+        $soluongmaysudung = $thoikhoabieu->soluongmaysudung;
+
+        //Lấy ra tổng số máy được phép đăng ký
+        $soluongduocdangky = $phong_tongsoluong - $soluongmaysudung;
+
+        //Lấy ra danh sách máy
+        $list_computer = May::where('phong_id', $phong_id)->take($soluongduocdangky)->get();
+        return view('admin.dangky.sinhvien.list_computer', compact('page_title', 'danhsach', 'danhsach_id', 'phong_id', 'tiet_id',  'ngay',
+        'list_computer', 'phong', 'phong_tongsoluong', 'phong_ten', 'thoikhoabieu', 'soluongmaysudung'));
     }
 
     public function registerComputer(Request $request) {
@@ -61,11 +81,7 @@ class AdminDanhSachDangKyController extends Controller
             Toastr::error('Máy đã đăng ký', 'Thất bại');
             return redirect()->back();
         }
-
-      
-       
     }
-
 
     //Giảng viên
     public function index_gv() {
@@ -81,6 +97,7 @@ class AdminDanhSachDangKyController extends Controller
         //Lấy danhsach_id, phong_id đăng ký gởi sang trang chi tiết
         $danhsach_id = $danhsach->id;
         $phong_id = $danhsach->phong_id;
+
         $list_computer = May::where('phong_id', $phong_id)->get();
         return view('admin.dangky.giangvien.list_computer', compact('page_title', 'danhsach', 'danhsach_id', 'phong_id', 'list_computer'));
     }

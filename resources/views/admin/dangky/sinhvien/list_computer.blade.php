@@ -8,6 +8,8 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
+                <h5 class="text-danger">Tổng số lượng máy của {{$phong_ten}}: {{$phong_tongsoluong}}</h5>
+                <h5 class="text-danger">Số lượng máy đã sử dụng: {{$soluongmaysudung}}</h5>
                 <form action="{{route('admin.dangky.sinhvien.register_computer')}}" method="POST">
                     @csrf
                     <div class="d-flex flex-column register-footer mt-3">

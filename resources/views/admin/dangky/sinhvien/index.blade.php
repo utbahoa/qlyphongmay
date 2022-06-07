@@ -15,7 +15,7 @@
                         <th>Tiết</th>
                         <th>Phần mềm</th>
                         <th>Phòng</th>
-                        <th>Thời gian đăng ký</th>   
+                        <th>Thời gian sử dụng</th>   
                         <th>Tình trạng</th>   
                         <th>Người duyệt</th>
                         <th>Thời gian duyệt</th>
@@ -30,7 +30,7 @@
                         <td>{{$item->tiet->tiet_ten}}</td> 
                         <td>{{$item->phanmem->phanmem_ten}}</td> 
                         <td>{{$item->phong->phong_ten}}</td>    
-                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>      
+                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td>      
                         <td>
                             @if($item->danhsach_tinhtrang == 0)
                                 <p class="text-primary"> Chưa duyệt</p>
