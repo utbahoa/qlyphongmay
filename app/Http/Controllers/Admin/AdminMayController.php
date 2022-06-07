@@ -60,4 +60,9 @@ class AdminMayController extends Controller
         return redirect()->route('admin.may.index');
     }
 
+    public function delete($id) {
+        May::find($id)->delete();
+        Toastr::success('Xóa máy thành công', 'Thành công');
+        return redirect()->route('admin.may.index');
+    }
 }

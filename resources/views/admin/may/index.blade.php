@@ -46,10 +46,7 @@
                                 @endif
                         </td>
                         <td>
-                            <a href="" class="btn btn-success text-uppercase" title="Sửa">
-                                Edit
-                            </a>
-                            <a href="" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa ngành này không?')">
+                            <a href="{{route('admin.may.delete',$item->id)}}" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa máy này không?')">
                                 Delete
                             </a>
                         </td>
