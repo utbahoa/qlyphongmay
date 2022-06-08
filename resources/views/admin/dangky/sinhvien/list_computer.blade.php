@@ -8,18 +8,18 @@
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
-                <h5 class="text-danger">Tổng số lượng máy của {{$phong_ten}}: {{$phong_tongsoluong}}</h5>
-                <h5 class="text-danger">Số lượng máy đã sử dụng: {{$soluongmaysudung}}</h5>
                 <form action="{{route('admin.dangky.sinhvien.register_computer')}}" method="POST">
                     @csrf
                     <div class="d-flex flex-column register-footer mt-3">
-                        <h5 class="text-primary">Chọn máy</h5>
+                        <h6 class="text-danger">Tổng số lượng máy: {{$tongsoluong}}</h6>
+                        <h6 class="text-danger">Tổng số lượng đã sử dụng: {{$soluongtoida}}</h6>
+                        <h6 class="text-danger mb-3">Tổng số lượng máy đăng ký đã duyệt: {{$soluongdadangky}}</h6>
+
                         <input type="hidden" name="danhsach_id" value="{{$danhsach_id}}">
                         <input type="hidden" name="phong_id" value="{{$phong_id}}">
-                        <input type="hidden" name="tiet_id" value="{{$tiet_id}}">
-                        <input type="hidden" name="thoigiansd" value="{{$ngay}}">
+                        <input type="hidden" name="tiet_id" value="{{$tiet_id}}"> 
+                        <input type="hidden" name="thoigiansd" value="{{$danhsach_thoigiansd}}">
                         <input type="hidden" name="danhsach_nguoiduyet" value="{{Auth::user()->name}}">
-                        <input type="hidden" name="soluongmaysudung" value="{{$soluongmaysudung}}">
                         <div class="d-flex flex-wrap">
                             @foreach($list_computer as $key => $item)
                             <div class="col-md-2 mb-3">
@@ -31,7 +31,7 @@
                                         <h5 class="mt-2" style="font-weight: bold">{{$item->may_ten}}</h5>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <input type="checkbox" name="may_id" class="may_id_{{$item->id}}" value="{{$item->id}}">
+                                        <input type="checkbox" name="may_id[]" class="may_id_{{$item->id}}" value="{{$item->id}}">
                                     </div>
                                 </div>
                             </div>

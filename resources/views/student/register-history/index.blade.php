@@ -13,7 +13,6 @@
                         <th>Tên sinh viên</th>   
                         <th>Tiết</th>    
                         <th>Phòng</th>   
-                        <th>Thời gian đăng ký</th>
                         <th>Thời gian sử dụng </th>      
                         <th>Tình trạng</th>   
                         <th>Người duyệt</th>
@@ -28,7 +27,6 @@
                         <td>{{$item->user->name}}</td>    
                         <td>{{$item->tiet->tiet_ten}}</td>                     
                         <td>{{$item->phong->phong_ten}}</td>
-                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>
                         <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td> 
                         <td>
                             @if($item->danhsach_tinhtrang == 0)

@@ -13,4 +13,12 @@ class Phong extends Model
     ];
 
     protected $table = 'phong';
+
+    public function thoikhoabieu() {
+        return $this->hasOne(ThoiKhoaBieu::class, 'phong_id');
+    }
+
+    public function dangky() {
+        return $this->hasMany(DanhSachDangKy::class, 'phong_id');
+    }
 }

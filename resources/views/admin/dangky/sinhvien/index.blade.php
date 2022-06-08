@@ -13,7 +13,6 @@
                         <th>STT</th>
                         <th>Tên sinh viên</th>                       
                         <th>Tiết</th>
-                        <th>Phần mềm</th>
                         <th>Phòng</th>
                         <th>Thời gian sử dụng</th>   
                         <th>Tình trạng</th>   
@@ -28,7 +27,6 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->user->name ?? 'None'}}</td> 
                         <td>{{$item->tiet->tiet_ten}}</td> 
-                        <td>{{$item->phanmem->phanmem_ten}}</td> 
                         <td>{{$item->phong->phong_ten}}</td>    
                         <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td>      
                         <td>

@@ -101,6 +101,7 @@
         $('#alert-box').removeClass('hide');
         $('#alert-box').delay(4000).slideUp(500);
     </script>
+    @yield('script')
    
 </body>
 
