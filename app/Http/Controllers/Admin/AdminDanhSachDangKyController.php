@@ -20,7 +20,7 @@ class AdminDanhSachDangKyController extends Controller
     public function index() {
         $page_title = 'Đăng ký sinh viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with( 'user', 'tiet', 'phanmem', 'phong')->where('quyen', '=', '2')->get();
+        $danhsach = DanhSachDangKy::with( 'user', 'tiet', 'phong')->where('quyen', '=', '2')->get();
         return view('admin.dangky.sinhvien.index', compact('page_title', 'user', 'danhsach'));
     }
 
@@ -93,7 +93,7 @@ class AdminDanhSachDangKyController extends Controller
     public function index_gv() {
         $page_title = 'Đăng ký giảng viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with('tiet', 'phanmem', 'phong')->where('quyen', '=', '3')->get();
+        $danhsach = DanhSachDangKy::with('tiet', 'phong')->where('quyen', '=', '3')->get();
         return view('admin.dangky.giangvien.index', compact('page_title', 'user', 'danhsach'));
     }
 

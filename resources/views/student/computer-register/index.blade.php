@@ -23,15 +23,6 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="d-flex flex-column mr-4">
-                            <h5 class="text-primary">Phần mềm</h5>
-                            <select name="phanmem_id" id="phanmem_id" class="form-control">
-                                <option selected disabled>----------Chọn phần mềm----------</option>
-                                @foreach($phanmem as $key => $item)
-                                <option value="{{$item->id}}">{{$item->phanmem_ten}}</option>
-                                @endforeach
-                            </select>
-                        </div>
                         <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
                         <input type="hidden" name="quyen" class="quyen" value="{{Auth::user()->quyen_id}}">
                     </div>

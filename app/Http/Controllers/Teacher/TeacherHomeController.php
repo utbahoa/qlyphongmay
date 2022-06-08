@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Khoa;
 use App\Models\Nganh;
 use App\Models\Lop;
-use App\Models\PhanMem;
 use App\Models\Tiet;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
@@ -42,9 +41,8 @@ class TeacherHomeController extends Controller
     public function computerRegister() {
         $page_title = 'Đăng ký máy trực tuyến';
         $tiet = Tiet::orderBy('id', 'asc')->get();
-        $phanmem = PhanMem::orderBy('id', 'asc')->get();
         $phong = Phong::orderBy('id', 'asc')->get();
-        return view('teacher.computer-register.index', compact('page_title', 'tiet', 'phanmem', 'phong'));
+        return view('teacher.computer-register.index', compact('page_title', 'tiet', 'phong'));
     }
 
     public function register(Request $request) {
@@ -58,7 +56,6 @@ class TeacherHomeController extends Controller
                $phong_check_id = $item;
                $user_id = $request->user_id;
                $tiet_id = $request->tiet_id;
-               $phanmem_id = $request->phanmem_id;
                $danhsach_soluong = $request->danhsach_soluong;
                $danhsach_thoigiandk = now();
                $danhsach_tinhtrang = 0;
@@ -67,7 +64,6 @@ class TeacherHomeController extends Controller
                    date_default_timezone_set('Asia/Ho_Chi_Minh'),
                    'user_id' => $user_id,
                    'tiet_id' => $tiet_id,
-                   'phanmem_id' => $phanmem_id,
                    'phong_id' => $phong_check_id,
                    'danhsach_soluong' => $danhsach_soluong,
                    'danhsach_thoigiandk' =>  $danhsach_thoigiandk,
@@ -92,10 +88,9 @@ class TeacherHomeController extends Controller
         $user_id =  Auth::user()->id;
         $user = User::all();
         $tiet = Tiet::all();
-        $phanmem = PhanMem::all();
         $phong = Phong::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phanmem', 'phong')->where('user_id', $user_id)->get();
-        return view('teacher.register-history.index', compact('page_title', 'user', 'tiet', 'phanmem', 'phong', 'danhsach'));
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('user_id', $user_id)->get();
+        return view('teacher.register-history.index', compact('page_title', 'user', 'tiet', 'phong', 'danhsach'));
     }
 
 }

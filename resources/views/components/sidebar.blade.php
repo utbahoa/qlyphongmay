@@ -54,13 +54,7 @@
                <i class="fas fa-fw fa-table"></i>
                <span>Quản lý phòng</span></a>
        </li>
-       <li class="nav-item">
-           <a class="nav-link" href="{{route('admin.phanmem.index')}}">
-               <i class="fas fa-fw fa-table"></i>
-               <span>Quản lý phần mềm</span></a>
-       </li>
-
-       <li class="nav-item">
+        <li class="nav-item">
            <a class="nav-link" href="{{route('admin.khoa.index')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Quản lý khoa</span></a>
@@ -84,12 +78,6 @@
            <a class="nav-link" href="{{route('admin.thongbao.index')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Quản lý Thông Báo</span></a>
-       </li>
-       <li class="nav-item">
-           <a class="nav-link" href="{{route('admin.may_phanmem.index')}}">
-               <i class="fas fa-fw fa-table"></i>
-               <span>Quản lý Máy-Phần Mềm</span></a>
-       </li>
        <li class="nav-item">
            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" style="padding: 10px 1rem;">
                <i class="fas fa-fw fa-cog"></i>

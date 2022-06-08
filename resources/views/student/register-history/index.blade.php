@@ -11,8 +11,7 @@
                     <tr>
                         <th>STT</th>
                         <th>Tên sinh viên</th>   
-                        <th>Tiết</th>   
-                        <th>Phần mềm</th>   
+                        <th>Tiết</th>    
                         <th>Phòng</th>   
                         <th>Thời gian đăng ký</th>
                         <th>Thời gian sử dụng </th>      
@@ -27,8 +26,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->user->name}}</td>    
-                        <td>{{$item->tiet->tiet_ten}}</td>   
-                        <td>{{$item->phanmem->phanmem_ten}}</td>                      
+                        <td>{{$item->tiet->tiet_ten}}</td>                     
                         <td>{{$item->phong->phong_ten}}</td>
                         <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>
                         <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td> 

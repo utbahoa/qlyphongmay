@@ -17,7 +17,6 @@ class CreateDanhsachdangkyTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('tiet_id');
-            $table->unsignedBigInteger('phanmem_id');
             $table->unsignedBigInteger('phong_id');
             $table->integer('danhsach_soluong')->nullable();
             $table->date('danhsach_thoigiansd');
@@ -28,7 +27,6 @@ class CreateDanhsachdangkyTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('tiet_id')->references('id')->on('tiet');
-            $table->foreign('phanmem_id')->references('id')->on('phanmem');
             $table->foreign('phong_id')->references('id')->on('phong');
             $table->timestamps();
         });

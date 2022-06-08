@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Khoa;
 use App\Models\Nganh;
 use App\Models\Lop;
-use App\Models\PhanMem;
 use App\Models\Tiet;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
@@ -16,6 +15,7 @@ use App\Models\ThoiKhoaBieu;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class StudentHomeController extends Controller
 {
@@ -50,28 +50,32 @@ class StudentHomeController extends Controller
     {
         $page_title = 'Đăng ký máy trực tuyến';
         $tiet = Tiet::orderBy('id', 'asc')->get();
-        $phanmem = PhanMem::orderBy('id', 'asc')->get();
         $phong = Phong::orderBy('id', 'asc')->get();
 
         $student_id = Auth::user()->id;
-        $thoikhoabieu = ThoiKhoaBieu::where('user_id', $student_id)->get();
+        $thoikhoabieu = ThoiKhoaBieu::all();
 
-        return view('student.computer-register.index', compact('page_title', 'tiet', 'phanmem', 'phong', 'thoikhoabieu'));
+        return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu'));
     }
 
     public function register(Request $request)
     {
-        //Check chỉ cho đăng ký 1 phòng
+        //Check chỉ đăng ký một phòng
+        //Đây là một mảng
         $check_phong = $request->phong_id;
-        if (count($check_phong) > 1) {
+        //Đếm mảng nếu > 1 thì báo lỗi
+        if(count($check_phong) > 1) {
             Toastr::error('Sinh viên chỉ được đăng ký một phòng', 'Thất bại');
             return redirect()->back();
-        } else {
-            foreach ($check_phong as $key => $item) {
-                $phong_check_id = $item;
-                $user_id = $request->user_id;
+        }
+        else{
+            //Mảng ở đây chỉ còn 1 cái Phong_id nên cần lặp ra vì đã khai báo là mảng nên mới cần lặp
+            //Key là vị trí thứ 0 , item là value của phong_id
+            foreach($check_phong as $key => $item) {
+                //Dữ liệu request dc chuẩn bị để thêm
+                $phong_after_check_id = $item;
                 $tiet_id = $request->tiet_id;
-                $phanmem_id = $request->phanmem_id;
+                $user_id = $request->user_id;
                 $danhsach_thoigiansd = $request->danhsach_thoigiansd;
                 $danhsach_tinhtrang = 0;
                 $quyen = $request->quyen;
@@ -79,46 +83,45 @@ class StudentHomeController extends Controller
                     date_default_timezone_set('Asia/Ho_Chi_Minh'),
                     'user_id' => $user_id,
                     'tiet_id' => $tiet_id,
-                    'phanmem_id' => $phanmem_id,
-                    'phong_id' => $phong_check_id,
+                    'phong_id' => $phong_after_check_id,
                     'danhsach_thoigiansd' =>  $danhsach_thoigiansd,
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
-                //Check thời khóa biểu xem cấn lịch học không
-                $student_id = Auth::user()->id;
-                $check_thoikhoabieu = ThoiKhoaBieu::where('user_id', $student_id)
-                    ->where('ngay', $request->danhsach_thoigiansd)
-                    ->where('phong_id', $request->phong_id)
-                    ->where('tiet_id', $request->tiet_id)->count();
-                if ($check_thoikhoabieu == 0) {
-                    //Ko cho đăng ký cùng tiết cùng ngày đang học
-                    $check_trungtiet = ThoiKhoaBieu::where('user_id', $student_id)
-                        ->where('ngay', $request->danhsach_thoigiansd)
-                        ->where('tiet_id', $request->tiet_id)
-                        ->count();
-                    if ($check_trungtiet == 0) {
-                        //Check sinh viên đã đăng ký chưa
-                        $check_user = DanhSachDangKy::where('user_id', $user_id)
-                            ->where('tiet_id', $tiet_id)
-                            ->where('phong_id', $phong_check_id)
-                            ->count();
-                        if ($check_user == 0) {
-                            DanhSachDangKy::create($data);
-                            Toastr::success('Đăng ký thành công', 'Thành công');
-                            return redirect()->route('student.computer-register.index');
-                        } else {
-                            Toastr::error('Sinh viên đã đăng ký', 'Thất bại');
-                            return redirect()->back();
-                        }
-                    }
-                    else{
-                        Toastr::error('Không được đăng ký trùng tiết cùng ngày', 'Thất bại');
-                        return redirect()->back();
-                    }
-                } else {
-                    Toastr::error('Cấn lịch', 'Thất bại');
+                //Chuyển ngày sang thứ
+                $ngay_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) +1;
+                //dd($ngay_convert);
+
+                //Lấy ra số lượng tối đa từ thười khóa biểu
+                $thoikhoabieu = ThoiKhoaBieu::where('thu', $ngay_convert)
+                                            ->where('phong_id', $phong_after_check_id)
+                                            ->where('tiet_id', $tiet_id)
+                                            ->first();
+                $soluongtoida = $thoikhoabieu->soluongmaysudung;
+                //dd($soluongtoida);
+
+                //Lấy ra số lượng đã đăng ký
+                $soluongdadangky= DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
+                                          ->where('tiet_id', $tiet_id)
+                                          ->where('phong_id',  $phong_after_check_id)
+                                          ->where('danhsach_tinhtrang', 1)
+                                          ->count();
+
+                //Tìm tổng số lượng amys của phòng theo phong_id
+                $phong = Phong::where('id', $phong_after_check_id)->first();
+                $tongsoluongmay = $phong->phong_soluong;
+                
+                //Tính tổng số máy còn lại của phòng, tiết, ngày đó
+                $soluongconlai = $tongsoluongmay - $soluongtoida - $soluongdadangky;
+                
+                //Check xem sinh viên đăng ký phòng được ko dựa trên số máy còn lại
+                if($soluongconlai == 0) {
+                    Toastr::error('Đã hết máy', 'Thất bại');
                     return redirect()->back();
+                }else{
+                    DanhSachDangKy::create($data);
+                    Toastr::success('Đăng ký thành công', 'Thành công');
+                    return redirect()->route('student.computer-register.index');
                 }
             }
         }
@@ -130,12 +133,11 @@ class StudentHomeController extends Controller
         $user_id =  Auth::user()->id;
         $user = User::all();
         $tiet = Tiet::all();
-        $phanmem = PhanMem::all();
         $phong = Phong::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phanmem', 'phong', 'chitietdangky')
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong', 'chitietdangky')
             ->where('user_id', $user_id)
             ->get();
-        return view('student.register-history.index', compact('page_title', 'user', 'tiet', 'phanmem', 'phong', 'danhsach'));
+        return view('student.register-history.index', compact('page_title', 'user', 'tiet', 'phong', 'danhsach'));
     }
 
     public function registerResult($id)

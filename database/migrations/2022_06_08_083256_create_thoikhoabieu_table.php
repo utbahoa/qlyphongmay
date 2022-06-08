@@ -15,7 +15,7 @@ class CreateThoikhoabieuTable extends Migration
     {
         Schema::create('thoikhoabieu', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('thu');
+            $table->integer('thu');
             $table->unsignedBigInteger('phong_id');
             $table->unsignedBigInteger('monhoc_id')->nullable();
             $table->unsignedBigInteger('tiet_id');

@@ -10,7 +10,7 @@ class DanhSachDangKy extends Model
     use HasFactory;
     public $timestamps = true;
     protected $fillable = [
-        'user_id', 'tiet_id', 'phanmem_id', 'phong_id', 'danhsach_soluong', 'danhsach_thoigiansd',
+        'user_id', 'tiet_id', 'phong_id', 'danhsach_soluong', 'danhsach_thoigiansd',
         'danhsach_tinhtrang', 'danhsach_nguoiduyet', 'danhsach_thoigianduyet', 'quyen', 
     ];
 
@@ -24,11 +24,6 @@ class DanhSachDangKy extends Model
     public function tiet()
     {
         return $this->belongsTo(Tiet::class, 'tiet_id', 'id');
-    }
-
-    public function phanmem()
-    {
-        return $this->belongsTo(PhanMem::class, 'phanmem_id', 'id');
     }
 
     //1-1
