@@ -73,6 +73,12 @@ Route::namespace('Admin')->group(function () {
 
             Route::prefix('may_phanmem')->group(function () {
                 Route::get('/', [AdminMayPhanMemController::class, 'index'])->name('admin.may_phanmem.index');
+                Route::get('/create', [AdminMayPhanMemController::class, 'create'])->name('admin.may_phanmem.create');
+                Route::get('/search', [AdminMayPhanMemController::class, 'search'])->name('admin.may_phanmem.search');
+                Route::post('/store', [AdminMayPhanMemController::class, 'store'])->name('admin.may_phanmem.store');
+                Route::get('/edit/{id}', [AdminMayPhanMemController::class, 'edit'])->name('admin.may_phanmem.edit');
+                Route::post('/update/{id}', [AdminMayPhanMemController::class, 'update'])->name('admin.may_phanmem.update');
+                Route::get('/delete/{id}', [AdminMayPhanMemController::class, 'destroy'])->name('admin.may_phanmem.destroy');
             });
 
             Route::prefix('khoa')->group(function () {

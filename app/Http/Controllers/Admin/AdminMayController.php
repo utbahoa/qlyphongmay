@@ -12,7 +12,7 @@ class AdminMayController extends Controller
     public function index() {
         $page_title = 'Quản lý máy';
         $phong = Phong::all();
-        $may = May::orderBy('id', 'asc')->with('phong')->paginate(10);
+        $may = May::orderBy('phong_id', 'asc')->with('phong')->paginate(10);
         return view('admin.may.index', compact('page_title', 'phong', 'may'));      
     }
 

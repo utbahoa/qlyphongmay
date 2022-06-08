@@ -15,14 +15,12 @@ class CreateThoikhoabieuTable extends Migration
     {
         Schema::create('thoikhoabieu', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->date('ngay');
+            $table->string('thu');
             $table->unsignedBigInteger('phong_id');
-            $table->unsignedBigInteger('monhoc_id');
+            $table->unsignedBigInteger('monhoc_id')->nullable();
             $table->unsignedBigInteger('tiet_id');
             $table->integer('soluongmaysudung');
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('phong_id')->references('id')->on('phong');
             $table->foreign('monhoc_id')->references('id')->on('monhoc');
             $table->foreign('tiet_id')->references('id')->on('tiet');

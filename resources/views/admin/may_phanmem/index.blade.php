@@ -8,14 +8,8 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
                 <div class="d-flex justify-content-between">
-                    <div>
-                        <form action="" method="GET">
-                            @csrf
-                            <div class="search-box d-flex">                        
-                            </div>
-                        </form>
-                    </div>
-                    <a href="" class="btn btn-primary text-uppercase" title="Thêm">
+                    
+                    <a href="{{route('admin.may_phanmem.create')}}" class="btn btn-primary text-uppercase" title="Thêm">
                        Thêm
                     </a>
                 </div>
