@@ -50,11 +50,19 @@ class TeacherHomeController extends Controller
         $page_title = 'Đăng ký máy trực tuyến';
         $tiet = Tiet::orderBy('id', 'asc')->get();
         $phong = [];
-        if ($request->danhsach_thoigiansd > date('Y-m-d') && $request->tiet_id && $request->danhsach_soluong) {
+        if ($request->danhsach_thoigiansd > now() && $request->tiet_id && $request->danhsach_soluong) {
             $phong = Phong::orderBy('id', 'asc')->withCount(['dangky' => function ($query) use ($request) {
                 $query->where('danhsach_tinhtrang', 1)
                     ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
                     ->where('tiet_id', $request->tiet_id);
+            }])
+            ->withCount(['may' => function ($query) use ($request) {
+                $query->where('may_tinhtrang', 1);
+            }])
+            ->with(['thoikhoabieu' => function($query) use ($request) {
+                $thu = Carbon::parse($request->danhsach_thoigiansd)->weekday() + 1;
+                $query->where('tiet_id', $request->tiet_id)
+                ->where('thu', $thu);
             }])->get();
         }
         $student_id = Auth::user()->id;

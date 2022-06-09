@@ -75,22 +75,9 @@ class AdminDanhSachDangKyController extends Controller
             ->where('thoigiansd', $danhsach_thoigiansd)
             ->where('tiet_id', $tiet_id)
             ->pluck('may_id');
-
-        //dd($chitiet->toArray());
-
-        $maycontrong = [];
-        for ($i = 1; $i <= $tongsoluong - $soluongtoida; $i++) {
-            //foreach ($chitiet->toArray() as $item) {
-            if (!in_array($i, $chitiet->toArray())) {
-                $maycontrong[] = $i;
-            }
-
-            //}
-        }
-
-        $list_computer = May::where('phong_id', $phong_id)->whereIn('id', $maycontrong)->limit($soluongconlai)->get();
-
-
+        $list_computer = May::where('phong_id', $phong_id)->where('may_tinhtrang', 1)
+            ->whereNotIn('id', $chitiet)
+            ->get()->take($soluongconlai);
         //Lấy ra danh sách máy
 
 
@@ -218,19 +205,10 @@ class AdminDanhSachDangKyController extends Controller
             ->where('tiet_id', $tiet_id)
             ->pluck('may_id');
 
-        //dd($chitiet->toArray());
+        $list_computer = May::where('phong_id', $phong_id)->where('may_tinhtrang', 1)
+            ->whereNotIn('id', $chitiet)
+            ->get()->take($soluongconlai);
 
-        $maycontrong = [];
-        for ($i = 1; $i <= $tongsoluong - $soluongtoida; $i++) {
-            //foreach ($chitiet->toArray() as $item) {
-            if (!in_array($i, $chitiet->toArray())) {
-                $maycontrong[] = $i;
-            }
-
-            //}
-        }
-
-        $list_computer = May::where('phong_id', $phong_id)->whereIn('id', $maycontrong)->take($soluongconlai)->get();
 
         //Lấy ra danh sách máy
 
@@ -259,44 +237,38 @@ class AdminDanhSachDangKyController extends Controller
 
     public function registerComputer_gv(Request $request)
     {
-        $check_may = $request->may_id;
-        //dd($request->danhsach_soluong);
-        if($check_may = $request->danhsach_soluong) {
-            $danhsach_id = $request->danhsach_id;
-            foreach($check_may as $key => $item) {
-                $danhsach_id =  $danhsach_id;
-                $phong_id = $request->phong_id;
-                $tiet_id = $request->tiet_id;
-                $may_after_check_id = $$item;
-                $thoigiansd = $request->thoigiansd;
-                $data = [
-                    'danhsach_id' => $danhsach_id,
-                    'phong_id' => $phong_id,
-                    'tiet_id' => $tiet_id,
-                    'may_id' => $may_after_check_id,
-                    'thoigiansd' => $thoigiansd,
-                ];
-               
-            }
-            ChiTietDangKy::create($data);
-        
-            //Lấy ra danh sách sinh viên để update cho họ 
-            $danhsach = DanhSachDangKy::where('id', $danhsach_id)->first();
-            // $danhsach_tinhtrang = $danhsach->danhsach_tinhtrang;
-            $danhsach->update([
-                date_default_timezone_set('Asia/Ho_Chi_Minh'),
-                'danhsach_tinhtrang' => 1,
-                'danhsach_nguoiduyet' => $request->danhsach_nguoiduyet,
-                'danhsach_thoigianduyet' => now()
-            ]);
-            Toastr::success('Đăng ký thành công', 'Thành công');
-            return redirect()->route('admin.dangky.giangvien.index');
-        }  
-        else {
-            Toastr::error('Số máy chọn không phù hợp', 'Thất bại');
+        $danhsach = DanhSachDangKy::with('chitietdangky')->where('id', $request->danhsach_id)->first();
+        if (count($request->may_id) !== $danhsach->danhsach_soluong) {
+            Toastr::error('Số lượng máy chưa phù hợp với yêu cầu !');
             return redirect()->back();
         }
-       
-       
+        $check_may = $request->may_id;
+        $danhsach_id = $request->danhsach_id;
+        foreach ($check_may as $key => $item) {
+            $danhsach_id =  $danhsach_id;
+            $phong_id = $request->phong_id;
+            $tiet_id = $request->tiet_id;
+            $thoigiansd = $request->thoigiansd;
+            $data = [
+                'danhsach_id' => $danhsach_id,
+                'phong_id' => $phong_id,
+                'tiet_id' => $tiet_id,
+                'may_id' => $item,
+                'thoigiansd' => $thoigiansd,
+            ];
+            ChiTietDangKy::create($data);
+        }
+
+        //Lấy ra danh sách sinh viên để update cho họ 
+        $danhsach = DanhSachDangKy::where('id', $danhsach_id)->first();
+        // $danhsach_tinhtrang = $danhsach->danhsach_tinhtrang;
+        $danhsach->update([
+            date_default_timezone_set('Asia/Ho_Chi_Minh'),
+            'danhsach_tinhtrang' => 1,
+            'danhsach_nguoiduyet' => $request->danhsach_nguoiduyet,
+            'danhsach_thoigianduyet' => now()
+        ]);
+        Toastr::success('Đăng ký thành công', 'Thành công');
+        return redirect()->route('admin.dangky.giangvien.index');
     }
 }

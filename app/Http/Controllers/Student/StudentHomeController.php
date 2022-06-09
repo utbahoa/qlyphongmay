@@ -17,6 +17,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class StudentHomeController extends Controller
 {
@@ -53,11 +54,20 @@ class StudentHomeController extends Controller
         $tiet = Tiet::orderBy('id', 'asc')->get();
         $danhsach_thoigiansd = $request->danhsach_thoigiansd;
         $phong = [];
-        if ($request->danhsach_thoigiansd > date('Y-m-d') && $request->tiet_id) {
-            $phong = Phong::orderBy('id', 'asc')->withCount(['dangky' => function ($query) use ($request) {
+        if ($request->danhsach_thoigiansd > now() && $request->tiet_id) {
+            $phong = Phong::orderBy('id', 'asc')
+            ->withCount(['dangky' => function ($query) use ($request) {
                 $query->where('danhsach_tinhtrang', 1)
                     ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
                     ->where('tiet_id', $request->tiet_id);
+            }])
+            ->withCount(['may' => function ($query) use ($request) {
+                $query->where('may_tinhtrang', 1);
+            }])
+            ->with(['thoikhoabieu' => function($query) use ($request) {
+                $thu = Carbon::parse($request->danhsach_thoigiansd)->weekday() + 1;
+                $query->where('tiet_id', $request->tiet_id)
+                ->where('thu', $thu);
             }])->get();
         }
         $thoikhoabieu = ThoiKhoaBieu::all();

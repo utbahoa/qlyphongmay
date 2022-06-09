@@ -35,7 +35,7 @@
                             <div class="d-flex flex-wrap">
                                 @foreach($phong as $item)
                                 @php
-                                    $soluongconlai = $item->phong_soluong - optional($item->thoikhoabieu)->soluongmaysudung - $item->dangky_count
+                                    $soluongconlai = $item->may_count - optional($item->thoikhoabieu)->first()->soluongmaysudung - $item->dangky_count
                                 @endphp
                                 @if ($soluongconlai > 0 )
                                     <div class="col-md-3 mb-3">

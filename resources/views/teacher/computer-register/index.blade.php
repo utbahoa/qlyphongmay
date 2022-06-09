@@ -41,9 +41,9 @@
                         <div class="d-flex flex-wrap">
                             @foreach($phong as $key => $item)
                             @php
-                                $soluongconlai = $item->phong_soluong - optional($item->thoikhoabieu)->soluongmaysudung - $item->dangky_count
+                                $soluongconlai = $item->may_count - optional($item->thoikhoabieu)->first()->soluongmaysudung - $item->dangky_count
                             @endphp
-                            @if($soluongconlai > 0)
+                            @if($soluongconlai >= request()->danhsach_soluong)
                                 <div class="col-md-3 mb-3">
                                     <div class="card h-100">
                                         <div>
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="card-content h-100 text-center">
                                             <h5 class="mt-2" style="font-weight: bold">
-                                                {{$item->phong_ten}} - <span>Số lượng còn lại: {{ $soluongconlai }}</span>
+                                            {{$item->phong_ten}} - <span>Số lượng máy trống: {{ $soluongconlai }}/</span><span>{{$item->phong_soluong}}</span>
                                             </h5>
                                         </div>
                                         <div class="card-footer text-center">
