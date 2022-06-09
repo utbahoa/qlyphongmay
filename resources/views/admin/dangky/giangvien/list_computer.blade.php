@@ -11,9 +11,15 @@
                 <form action="{{route('admin.dangky.giangvien.register_computer')}}" method="POST">
                     @csrf
                     <div class="d-flex flex-column register-footer mt-3">
-                        <h5 class="text-primary">Chọn máy</h5>
+                        <h6 class="text-danger">Tổng số lượng máy: {{$tongsoluong}}</h6>
+                        <h6 class="text-danger">Tổng số lượng đã sử dụng: {{$soluongtoida}}</h6>
+                        <h6 class="text-danger mb-3">Tổng số lượng máy hỏng: {{$soluongmayhong}}</h6>
+                        <h6 class="text-danger mb-3">Tổng số lượng máy đăng ký đã duyệt: {{$soluongdadangky}}</h6>
+                        
                         <input type="hidden" name="danhsach_id" value="{{$danhsach_id}}">
                         <input type="hidden" name="phong_id" value="{{$phong_id}}">
+                        <input type="hidden" name="tiet_id" value="{{$tiet_id}}"> 
+                        <input type="hidden" name="thoigiansd" value="{{$danhsach_thoigiansd}}">
                         <input type="hidden" name="danhsach_nguoiduyet" value="{{Auth::user()->name}}">
                         <div class="d-flex flex-wrap">
                             @foreach($list_computer as $key => $item)
