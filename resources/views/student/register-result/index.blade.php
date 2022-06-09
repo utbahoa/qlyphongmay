@@ -2,7 +2,7 @@
 @section('page_content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">Kết quả đăng ký</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">Kết quả đăng ký của sinh viên</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -10,6 +10,7 @@
                 <thead>
                     <tr>
                         <th>STT</th>
+                        <th>Ngày</th>
                         <th>Phòng</th>   
                         <th>Máy</th>   
                     </tr>
@@ -18,6 +19,7 @@
                     @foreach($chitiet as $key => $item)
                     <tr>
                         <td>{{$item->danhsach_id}}</td>
+                        <td>{{date('d/m/Y', strtotime($item->thoigiansd))}}</td>
                         <td>{{$item->phong->phong_ten}}</td>    
                         <td>{{$item->may->may_ten}}</td>   
                     </tr>

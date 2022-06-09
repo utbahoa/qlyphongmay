@@ -22,18 +22,18 @@
                                 @endforeach
                             </select>
                         </div>
-                        <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
-                        <input type="hidden" name="quyen" class="quyen" value="{{Auth::user()->quyen_id}}">
+                        <div class="d-flex align-items-end">
+                             <button class="btn btn-primary ml-2">Tìm kiếm</button>
+                        </div>
                     </div>
-                    <button>Tim kiem</button>
                     </form>
                     <form action="{{route('student.computer-register.register')}}" method="POST" id="formUpdate" class="d-block">
-                        
                         <div class="d-flex flex-column register-footer mt-3">
                             <h5 class="text-primary">Chọn phòng</h5>
+                            <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
+                            <input type="hidden" name="quyen" class="quyen" value="{{Auth::user()->quyen_id}}">
                             <div class="d-flex flex-wrap">
                                 @foreach($phong as $item)
-
                                 @php
                                     $soluongconlai = $item->phong_soluong - optional($item->thoikhoabieu)->soluongmaysudung - $item->dangky_count
                                 @endphp
@@ -72,7 +72,6 @@
     @endsection
     @section('script')
         <script>
-
             $(function() {
                 console.log(123);
                 $('#buttonUpdate').click(function(e) {

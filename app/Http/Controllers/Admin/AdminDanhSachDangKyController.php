@@ -21,7 +21,7 @@ class AdminDanhSachDangKyController extends Controller
     public function index() {
         $page_title = 'Đăng ký sinh viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with( 'user', 'tiet', 'phong')->where('quyen', '=', '2')->get();
+        $danhsach = DanhSachDangKy::with( 'user', 'tiet', 'phong')->where('quyen', '=', '2')->where('danhsach_tinhtrang', 0)->get();
         return view('admin.dangky.sinhvien.index', compact('page_title', 'user', 'danhsach'));
     }
 

@@ -50,8 +50,9 @@ class StudentHomeController extends Controller
     {
         $page_title = 'Đăng ký máy trực tuyến';
         $tiet = Tiet::orderBy('id', 'asc')->get();
+        $danhsach_thoigiansd = $request->danhsach_thoigiansd;
         $phong = [];
-        if ($request->danhsach_thoigiansd && $request->tiet_id) {
+        if ($request->danhsach_thoigiansd > date('Y-m-d') && $request->tiet_id) {
             $phong = Phong::orderBy('id', 'asc')->withCount(['dangky' => function ($query) use ($request) {
                 $query->where('danhsach_tinhtrang', 1)
                     ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
@@ -62,7 +63,7 @@ class StudentHomeController extends Controller
         $student_id = Auth::user()->id;
         $thoikhoabieu = ThoiKhoaBieu::all();
 
-        return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu'));
+        return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu', 'danhsach_thoigiansd'));
     }
 
     public function register(Request $request)
@@ -72,7 +73,7 @@ class StudentHomeController extends Controller
         $check_phong = $request->phong_id;
 
         if (is_null($request->tiet_id) || is_null($request->danhsach_thoigiansd) || is_null($check_phong)) {
-            Toastr::error('Đã đăng ký', 'Chưa đủ thông tin');
+            Toastr::error('Chưa chọn đủ thông tin', 'Thất bại');
             return redirect()->back();
         }
         //Đếm mảng nếu > 1 thì báo lỗi
@@ -99,7 +100,12 @@ class StudentHomeController extends Controller
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
-
+            
+                // if($danhsach_thoigiansd < date('Y-m-d')) {
+                //     Toastr::error('Phải đăng ký ngày lớn hơn ngày hiện tại', 'Thất bại');
+                //     return redirect()->back();
+                // }
+               
                 //Check sinh viên đã đăng ký chưa 
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
@@ -161,7 +167,7 @@ class StudentHomeController extends Controller
         $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong', 'chitietdangky')
             ->where('user_id', $user_id)
             ->get();
-        return view('student.register-history.index', compact('page_title', 'user', 'tiet', 'phong', 'danhsach'));
+        return view('student.register-history.index', compact('page_title', 'user', 'user_id', 'tiet', 'phong', 'danhsach'));
     }
 
     public function registerResult($id)
