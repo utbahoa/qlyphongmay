@@ -22,16 +22,7 @@
                                 <option value="{{$item->id}}">{{$item->tiet_ten}}</option>
                                 @endforeach
                             </select>
-                        </div>
-                        <div class="d-flex flex-column mr-4">
-                            <h5 class="text-primary">Phần mềm</h5>
-                            <select name="phanmem_id" id="phanmem_id" class="form-control">
-                                <option selected disabled>----------Chọn phần mềm----------</option>
-                                @foreach($phanmem as $key => $item)
-                                <option value="{{$item->id}}">{{$item->phanmem_ten}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        </div>                       
                         <div class="d-flex flex-column">
                             <h5 class="text-primary">Số lượng</h5>
                             <input type="number" min="1" name="danhsach_soluong" placeholder="Chọn số lượng" class="form-control">

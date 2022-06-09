@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChiTietDangKy;
 use App\Models\User;
 use App\Models\Khoa;
 use App\Models\Nganh;
@@ -10,6 +11,7 @@ use App\Models\Lop;
 use App\Models\Tiet;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
+use App\Models\ThoiKhoaBieu;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -57,7 +59,7 @@ class TeacherHomeController extends Controller
                $user_id = $request->user_id;
                $tiet_id = $request->tiet_id;
                $danhsach_soluong = $request->danhsach_soluong;
-               $danhsach_thoigiandk = now();
+               $danhsach_thoigiansd = $request->danhsach_thoigiansd;
                $danhsach_tinhtrang = 0;
                $quyen = $request->quyen;
                $data = [
@@ -66,7 +68,7 @@ class TeacherHomeController extends Controller
                    'tiet_id' => $tiet_id,
                    'phong_id' => $phong_check_id,
                    'danhsach_soluong' => $danhsach_soluong,
-                   'danhsach_thoigiandk' =>  $danhsach_thoigiandk,
+                   'danhsach_thoigiansd' =>  $danhsach_thoigiansd,
                    'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                    'quyen' => $quyen
                ];

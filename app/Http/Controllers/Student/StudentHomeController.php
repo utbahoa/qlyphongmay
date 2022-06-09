@@ -51,20 +51,17 @@ class StudentHomeController extends Controller
         $page_title = 'Đăng ký máy trực tuyến';
         $tiet = Tiet::orderBy('id', 'asc')->get();
         $phong = [];
-        if ($request->danhsach_thoigiansd && $request->tiet_id) {
+        if ($request->danhsach_thoigiansd  && $request->tiet_id) {
             $phong = Phong::orderBy('id', 'asc')->withCount(['dangky' => function ($query) use ($request) {
                 $query->where('danhsach_tinhtrang', 1)
                     ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
                     ->where('tiet_id', $request->tiet_id);
             }])->get();
         }
-
         $student_id = Auth::user()->id;
         $thoikhoabieu = ThoiKhoaBieu::all();
-
         return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu'));
     }
-
     public function register(Request $request)
     {
         //Check chỉ đăng ký một phòng
@@ -72,7 +69,7 @@ class StudentHomeController extends Controller
         $check_phong = $request->phong_id;
 
         if (is_null($request->tiet_id) || is_null($request->danhsach_thoigiansd) || is_null($check_phong)) {
-            Toastr::error('Đã đăng ký', 'Chưa đủ thông tin');
+            Toastr::error('Không thể đăng ký', 'Chưa đủ thông tin');
             return redirect()->back();
         }
         //Đếm mảng nếu > 1 thì báo lỗi
@@ -99,8 +96,7 @@ class StudentHomeController extends Controller
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
-
-                //Check sinh viên đã đăng ký chưa 
+                //Check sinh viên đã đăng ký chưa.
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
                     ->where('tiet_id', $tiet_id)
