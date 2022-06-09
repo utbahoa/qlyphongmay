@@ -10,6 +10,7 @@ use App\Models\Nganh;
 use App\Models\Lop;
 use App\Models\Tiet;
 use App\Models\Phong;
+use App\Models\May;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
 use Brian2694\Toastr\Facades\Toastr;
@@ -59,9 +60,7 @@ class StudentHomeController extends Controller
                     ->where('tiet_id', $request->tiet_id);
             }])->get();
         }
-        $student_id = Auth::user()->id;
         $thoikhoabieu = ThoiKhoaBieu::all();
-
         return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu', 'danhsach_thoigiansd'));
     }
     public function register(Request $request)
@@ -129,8 +128,12 @@ class StudentHomeController extends Controller
                     $phong = Phong::where('id', $phong_after_check_id)->first();
                     $tongsoluongmay = $phong->phong_soluong;
 
+                    //Tìm tổng số máy bị hỏng của phòng đó
+                    $soluongmayhong = May::where('phong_id', $phong_after_check_id)->where('may_tinhtrang', 0)->count();
+
                     //Tính tổng số máy còn lại của phòng, tiết, ngày đó
-                    $soluongconlai = $tongsoluongmay - $soluongtoida - $soluongdadangky;
+                    $soluongconlai = $tongsoluongmay - $soluongtoida - $soluongdadangky - $soluongmayhong;
+                    //dd($soluongconlai);
 
                     //Check xem sinh viên đăng ký phòng được ko dựa trên số máy còn lại
                     if ($soluongconlai == 0) {
