@@ -47,7 +47,8 @@ class AdminDanhSachDangKyController extends Controller
                                     ->where('tiet_id', $tiet_id)
                                     ->first();
         $soluongtoida = $thoikhoabieu->soluongmaysudung;
-        
+              
+
         //Lấy ra số lượng đã đăng ký được duyệt ngày, phòng, tiết
         $soluongdadangky= DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
         ->where('tiet_id', $tiet_id)
@@ -55,8 +56,13 @@ class AdminDanhSachDangKyController extends Controller
         ->where('danhsach_tinhtrang', 1)
         ->count();
       
+        //Lấy ra số lượng hỏng
+        $soluongmayhong = May::where('phong_id', $phong_id)
+        ->where('may_tinhtrang',0)
+        ->count();
+        
         //Tỉnh tổng số máy còn thể đăng ký
-        $soluongconlai =  $tongsoluong - $soluongtoida - $soluongdadangky;
+        $soluongconlai =  $tongsoluong - $soluongtoida - $soluongdadangky - $soluongmayhong;
 
         //Lấy ra máy đã đăng ký của sinh viên
         $chitiet = ChiTietDangKy::where('phong_id', $phong_id)
@@ -82,7 +88,7 @@ class AdminDanhSachDangKyController extends Controller
       
 
         return view('admin.dangky.sinhvien.list_computer', compact('page_title', 'danhsach', 'danhsach_id', 'phong_id', 'tiet_id', 'phong',
-        'list_computer','tongsoluong', 'danhsach_thoigiansd', 'ngay_convert', 'thoikhoabieu', 'soluongtoida',
+        'list_computer','tongsoluong', 'danhsach_thoigiansd', 'ngay_convert', 'thoikhoabieu', 'soluongtoida', 'soluongmayhong',
         'soluongdadangky', 'soluongconlai', 'chitiet'));
     }
 
@@ -91,10 +97,12 @@ class AdminDanhSachDangKyController extends Controller
         //Đây là một mảng
         $check_may = $request->may_id;
         //Đếm mảng nếu > 1 thì báo lỗi
+
+        
         if(count($check_may) > 1) {
             Toastr::error('Chỉ được chọn một máy cho sinh viên', 'Thất bại');
             return redirect()->back();
-        }else{
+        }else{ 
             // $check_register = ChiTietDangKy::where('phong_id', $phong_check)->where('may_id', $may_check)->count();
             foreach($check_may as $key => $item) {
                 $danhsach_id = $request->danhsach_id;

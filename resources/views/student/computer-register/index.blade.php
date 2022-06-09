@@ -45,7 +45,7 @@
                                             </div>
                                             <div class="card-content h-100 text-center">
                                                 <h5 class="mt-2" style="font-weight: bold">
-                                                {{$item->phong_ten}} - <span>Số lượng còn lại: {{ $soluongconlai }}</span>
+                                                {{$item->phong_ten}} - <span>Số lượng máy trống: {{ $soluongconlai }}/</span><span>{{$item->phong_soluong}}</span>
                                             </h5>
                                             </div>
                                             <div class="card-footer text-center">
