@@ -37,7 +37,7 @@
                                 @php
                                     $soluongconlai = $item->phong_soluong - optional($item->thoikhoabieu)->soluongmaysudung - $item->dangky_count
                                 @endphp
-                                @if ($soluongconlai > 0)
+                                @if ($soluongconlai > 0 )
                                     <div class="col-md-3 mb-3">
                                         <div class="card h-100">
                                             <div>

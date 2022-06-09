@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\ChiTietDangKy;
 use App\Models\User;
 use App\Models\Khoa;
 use App\Models\Nganh;
@@ -68,6 +69,7 @@ class TeacherHomeController extends Controller
             Toastr::error('Chưa chọn đủ thông tin', 'Thất bại');
             return redirect()->back();
         }
+
         //Check số phòng lớn hơn 1
         if (count($check_phong) > 1) {
             Toastr::error('Giảng viên chỉ được đăng ký một phòng', 'Thất bại');

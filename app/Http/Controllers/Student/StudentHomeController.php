@@ -60,12 +60,9 @@ class StudentHomeController extends Controller
                     ->where('tiet_id', $request->tiet_id);
             }])->get();
         }
-
         $thoikhoabieu = ThoiKhoaBieu::all();
-
         return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu', 'danhsach_thoigiansd'));
     }
-
     public function register(Request $request)
     {
         //Check chỉ đăng ký một phòng
@@ -100,13 +97,7 @@ class StudentHomeController extends Controller
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
-            
-                // if($danhsach_thoigiansd < date('Y-m-d')) {
-                //     Toastr::error('Phải đăng ký ngày lớn hơn ngày hiện tại', 'Thất bại');
-                //     return redirect()->back();
-                // }
-               
-                //Check sinh viên đã đăng ký chưa 
+
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
                     ->where('tiet_id', $tiet_id)
