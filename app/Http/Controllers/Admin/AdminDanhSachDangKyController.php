@@ -35,11 +35,12 @@ class AdminDanhSachDangKyController extends Controller
         $phong_id = $danhsach->phong_id;
         $tiet_id = $danhsach->tiet_id;
 
-
-
+        $tiet = Tiet::where('id', $tiet_id)->first();
+        $tiet_ten = $tiet->tiet_ten;
 
         //Lấy ra tổng số lượng máy của phòng
         $phong = Phong::where('id', $phong_id)->first();
+        $phong_ten = $phong->phong_ten;
         $tongsoluong = $phong->phong_soluong;
 
         //Lấy ra số lượng tối đa của ngày, phòng, tiết
@@ -86,7 +87,10 @@ class AdminDanhSachDangKyController extends Controller
             'danhsach',
             'danhsach_id',
             'phong_id',
+            'phong_ten',
             'tiet_id',
+            'tiet',
+            'tiet_ten',
             'phong',
 
             'list_computer',
@@ -150,7 +154,7 @@ class AdminDanhSachDangKyController extends Controller
     {
         $page_title = 'Đăng ký giảng viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with('tiet', 'phong')->where('quyen', '=', '3')->get();
+        $danhsach = DanhSachDangKy::with('tiet', 'phong')->where('quyen', '=', '3')->where('danhsach_tinhtrang', 0)->get();
         return view('admin.dangky.giangvien.index', compact('page_title', 'user', 'danhsach'));
     }
 

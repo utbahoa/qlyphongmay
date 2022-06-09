@@ -166,4 +166,11 @@ class TeacherHomeController extends Controller
         $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('user_id', $user_id)->get();
         return view('teacher.register-history.index', compact('page_title', 'user', 'tiet', 'phong', 'danhsach'));
     }
+
+    public function registerResult($id)
+    {
+        $page_title = 'Xem kết quả';
+        $chitiet = ChiTietDangKy::with('danhsachdangky', 'phong')->where('danhsach_id', $id)->get();
+        return view('teacher.register-result.index', compact('page_title', 'chitiet'));
+    }
 }

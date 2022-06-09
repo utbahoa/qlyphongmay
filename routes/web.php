@@ -177,6 +177,7 @@ Route::namespace('Teacher')->group(function () {
                 Route::get('/', [TeacherHomeController::class, 'computerRegister'])->name('teacher.computer-register.index');
                 Route::post('/register', [TeacherHomeController::class, 'register'])->name('teacher.computer-register.register');
                 Route::get('/register-history', [TeacherHomeController::class, 'registerHistory'])->name('teacher.computer-register.register-history');
+                Route::get('/register-result/{id}', [TeacherHomeController::class, 'registerResult'])->name('teacher.computer-register.register-result');
             });
         });
     });

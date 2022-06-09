@@ -12,14 +12,32 @@
                         <form action="" method="GET">
                             @csrf
                             <div class="search-box d-flex">
-                                <input type="search" class="search-txt form-control mr-2 col-md-7" name="search" placeholder="Nhập tên ngành ...">
-                                <input type="submit" class="btn btn-info btn-sm mr-4" value="Tìm kiếm" name="search_items">
+                                <div class="form-group">
+                                    <label for="phong_id">Tên phòng</label>
+                                    <select name="phong_id" id="phong_id" class="form-control">
+                                        <option selected disabled>---Chọn Phòng---</option>
+                                        @foreach($phong as $key => $item)
+                                        <option value="{{$item->id}}">{{$item->phong_ten}}</option>
+                                        @endforeach
+                                    </select>
+                                    <span style="color: red;">
+                                        @error('phong_id')
+                                        {{$message}}
+                                        @enderror
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-end">
+                             <button class="btn btn-primary ml-4 mb-3">Lọc</button>
+                        </div>
                             </div>
                         </form>
                     </div>
-                    <a href="{{route('admin.may.create')}}" class="btn btn-primary text-uppercase" title="Thêm">
+                    <div class="d-flex align-items-end">
+                    <a href="{{route('admin.may.create')}}" class="btn btn-primary text-uppercase align-item-end mb-3" title="Thêm">
                         Thêm
                     </a>
+                        </div>
+                   
                 </div>
 
                 <div style="margin-top: 30px;"></div>
@@ -40,10 +58,10 @@
                         <td>{{$item->phong->phong_ten}}</td>
                         <td>
                             @if($item->may_tinhtrang == 1)
-                                <a href="{{route('admin.may.blocked', $item->id)}}" class="text-primary">Hoạt động</a>
+                            <a href="{{route('admin.may.blocked', $item->id)}}" class="text-primary">Hoạt động</a>
                             @else
-                                <a href="{{route('admin.may.active', $item->id)}}" class="text-danger">Khóa</a>
-                                @endif
+                            <a href="{{route('admin.may.active', $item->id)}}" class="text-danger">Khóa</a>
+                            @endif
                         </td>
                         <td>
                             <a href="{{route('admin.may.delete',$item->id)}}" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa máy này không?')">
