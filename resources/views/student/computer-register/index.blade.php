@@ -26,8 +26,8 @@
                              <button class="btn btn-primary ml-2">Tìm kiếm</button>
                         </div>
                     </div>
-                    </form>
-                    <form action="{{route('student.computer-register.register')}}" method="POST" id="formUpdate" class="d-block">
+                </form>
+                <form action="{{route('student.computer-register.register')}}" method="POST" id="formUpdate" class="d-block">
                         <div class="d-flex flex-column register-footer mt-3">
                             <h5 class="text-primary">Chọn phòng</h5>
                             <input type="hidden" name="user_id" class="user_id" value="{{Auth::id()}}">
@@ -65,7 +65,7 @@
                             <input type="hidden" name="tiet_id" id="update_tiet_id"/>
                             <button type="submit" class="btn btn-success btn-lg" id="buttonUpdate">Đăng ký</button>
                         </div>
-                    </form>
+                </form>
             </table>
         </div>
     </div>

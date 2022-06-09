@@ -12,7 +12,6 @@
                         <th>STT</th>
                         <th>Tên giảng viên</th>
                         <th>Tiết</th>
-                        <th>Phần mềm</th>
                         <th>Phòng</th>
                         <th>Số lượng máy</th>
                         <th>Thời gian đăng ký</th>
@@ -29,7 +28,6 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->user->name}}</td>    
                         <td>{{$item->tiet->tiet_ten}}</td>   
-                        <td>{{$item->phanmem->phanmem_ten}}</td>                      
                         <td>{{$item->phong->phong_ten}}</td>
                         <td>{{$item->danhsach_soluong}}</td>
                         <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>    

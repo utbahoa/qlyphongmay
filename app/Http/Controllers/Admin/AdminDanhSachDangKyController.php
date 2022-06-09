@@ -54,9 +54,14 @@ class AdminDanhSachDangKyController extends Controller
         ->where('phong_id',  $phong_id)
         ->where('danhsach_tinhtrang', 1)
         ->count();
+
+        //Lấy ra số máy hỏng của phòng
+        $soluongmayhong = May::where('phong_id', $phong_id)
+        ->where('may_tinhtrang', 0)
+        ->count();
       
         //Tỉnh tổng số máy còn thể đăng ký
-        $soluongconlai =  $tongsoluong - $soluongtoida - $soluongdadangky;
+        $soluongconlai =  $tongsoluong - $soluongtoida - $soluongdadangky - $soluongmayhong;
 
         //Lấy ra máy đã đăng ký của sinh viên
         $chitiet = ChiTietDangKy::where('phong_id', $phong_id)
@@ -83,7 +88,7 @@ class AdminDanhSachDangKyController extends Controller
 
         return view('admin.dangky.sinhvien.list_computer', compact('page_title', 'danhsach', 'danhsach_id', 'phong_id', 'tiet_id', 'phong',
         'list_computer','tongsoluong', 'danhsach_thoigiansd', 'ngay_convert', 'thoikhoabieu', 'soluongtoida',
-        'soluongdadangky', 'soluongconlai', 'chitiet'));
+        'soluongdadangky', 'soluongmayhong', 'soluongconlai', 'chitiet'));
     }
 
     public function registerComputer(Request $request) {
