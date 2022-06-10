@@ -10,21 +10,15 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <form action="" method="GET">
-                            @csrf
                             <div class="search-box d-flex">
                                 <div class="form-group">
                                     <label for="phong_id">Tên phòng</label>
                                     <select name="phong_id" id="phong_id" class="form-control">
-                                        <option selected disabled>---Chọn Phòng---</option>
+                                        <option selected value>---Tất cả---</option>
                                         @foreach($phong as $key => $item)
-                                        <option value="{{$item->id}}">{{$item->phong_ten}}</option>
+                                            <option value="{{$item->id}}" @if($item->id == request()->phong_id) selected @endif>{{$item->phong_ten}}</option>
                                         @endforeach
                                     </select>
-                                    <span style="color: red;">
-                                        @error('phong_id')
-                                        {{$message}}
-                                        @enderror
-                                    </span>
                                 </div>
                                 <div class="d-flex align-items-end">
                              <button class="btn btn-primary ml-4 mb-3">Lọc</button>

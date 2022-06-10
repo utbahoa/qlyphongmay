@@ -56,11 +56,12 @@ class StudentHomeController extends Controller
         $phong = [];
         if ($request->danhsach_thoigiansd > now() && $request->tiet_id) {
             $phong = Phong::orderBy('id', 'asc')
-            ->withCount(['dangky' => function ($query) use ($request) {
+            ->withSum(['dangky as dangky_count' => function ($query) use ($request) {
                 $query->where('danhsach_tinhtrang', 1)
                     ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
                     ->where('tiet_id', $request->tiet_id);
-            }])
+            }],'danhsach_soluong' )
+            
             ->withCount(['may' => function ($query) use ($request) {
                 $query->where('may_tinhtrang', 1);
             }])
@@ -105,7 +106,8 @@ class StudentHomeController extends Controller
                     'phong_id' => $phong_after_check_id,
                     'danhsach_thoigiansd' =>  $danhsach_thoigiansd,
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
-                    'quyen' => $quyen
+                    'quyen' => $quyen,
+                    'danhsach_soluong' => 1,
                 ];
 
                 $user_id =  Auth::user()->id;
@@ -132,7 +134,7 @@ class StudentHomeController extends Controller
                         ->where('tiet_id', $tiet_id)
                         ->where('phong_id',  $phong_after_check_id)
                         ->where('danhsach_tinhtrang', 1)
-                        ->count();
+                        ->sum('danhsach_soluong');
 
                     //Tìm tổng số lượng amys của phòng theo phong_id
                     $phong = Phong::where('id', $phong_after_check_id)->first();

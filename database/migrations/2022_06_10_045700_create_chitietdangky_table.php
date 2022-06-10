@@ -14,6 +14,7 @@ class CreateChitietdangkyTable extends Migration
     public function up()
     {
         Schema::create('chitietdangky', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('danhsach_id');
             $table->unsignedBigInteger('phong_id');
             $table->unsignedBigInteger('tiet_id');

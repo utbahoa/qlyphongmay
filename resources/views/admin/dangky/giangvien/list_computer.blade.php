@@ -11,9 +11,10 @@
                 <form action="{{route('admin.dangky.giangvien.register_computer')}}" method="POST">
                     @csrf
                     <div class="d-flex flex-column register-footer mt-3">
+                       
                         <h6 class="text-danger">Tổng số lượng máy: {{$tongsoluong}}</h6>
                         <h6 class="text-danger">Tổng số lượng đã sử dụng: {{$soluongtoida}}</h6>
-                        <h6 class="text-danger mb-3">Tổng số lượng máy hỏng: {{$soluongmayhong}}</h6>
+                        <h6 class="text-danger mb">Tổng số lượng máy hỏng: {{$soluongmayhong}}</h6>
                         <h6 class="text-danger mb-3">Tổng số lượng máy đăng ký đã duyệt: {{$soluongdadangky}}</h6>
                         
                         <input type="hidden" name="danhsach_id" value="{{$danhsach_id}}">

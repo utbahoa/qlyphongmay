@@ -14,7 +14,6 @@
                         <h6 class="text-danger">{{$phong_ten}}</h6>
                         <h6 class="text-danger">{{$tiet_ten}}</h6>
                         <h6 class="text-danger">Ngày sử dụng: {{date('d/m/Y', strtotime($danhsach_thoigiansd));}}</h6>
-
                         <h6 class="text-danger">Tổng số lượng máy: {{$tongsoluong}}</h6>
                         <h6 class="text-danger">Tổng số lượng đã sử dụng: {{$soluongtoida}}</h6>
                         <h6 class="text-danger mb-3">Tổng số lượng máy hỏng: {{$soluongmayhong}}</h6>

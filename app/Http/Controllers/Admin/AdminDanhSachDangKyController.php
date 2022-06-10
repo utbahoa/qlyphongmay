@@ -59,7 +59,7 @@ class AdminDanhSachDangKyController extends Controller
             ->where('tiet_id', $tiet_id)
             ->where('phong_id',  $phong_id)
             ->where('danhsach_tinhtrang', 1)
-            ->count();
+            ->sum('danhsach_soluong');
 
         //Lấy ra số máy hỏng của phòng
         $soluongmayhong = May::where('phong_id', $phong_id)
@@ -114,8 +114,8 @@ class AdminDanhSachDangKyController extends Controller
         //Đếm mảng nếu > 1 thì báo lỗi
 
 
-        if (count($check_may) > 1) {
-            Toastr::error('Chỉ được chọn một máy cho sinh viên', 'Thất bại');
+        if (is_null($request->may_id) ||count($request->may_id) > 1 ) {
+            Toastr::error('Chọn một máy cho sinh viên', 'Thất bại');
             return redirect()->back();
         } else {
             // $check_register = ChiTietDangKy::where('phong_id', $phong_check)->where('may_id', $may_check)->count();
@@ -188,7 +188,7 @@ class AdminDanhSachDangKyController extends Controller
             ->where('tiet_id', $tiet_id)
             ->where('phong_id',  $phong_id)
             ->where('danhsach_tinhtrang', 1)
-            ->count();
+            ->sum('danhsach_soluong');
 
         //Lấy ra số máy hỏng của phòng
         $soluongmayhong = May::where('phong_id', $phong_id)

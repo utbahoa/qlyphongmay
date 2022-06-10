@@ -9,10 +9,17 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class AdminMayController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $page_title = 'Quản lý máy';
         $phong = Phong::all();
-        $may = May::orderBy('phong_id', 'asc')->with('phong')->paginate(10);
+        $may = May::query()
+        ->when(isset($request->phong_id), function($query) use ($request) {
+            $query->where('phong_id', $request->phong_id);
+        })
+        ->orderBy('phong_id', 'asc')
+        ->with('phong')
+        ->paginate(10)
+        ->withQueryString();
         return view('admin.may.index', compact('page_title', 'phong', 'may'));      
     }
 

@@ -14,7 +14,7 @@
                         <th>Tiết</th>
                         <th>Phòng</th>
                         <th>Số lượng máy</th>
-                        <th>Thời gian đăng ký</th>
+                        <th>Thời gian sử dụng</th>
                         <th>Tình trạng</th>
                         <th>Người duyệt</th>
                         <th>Thời gian duyệt</th>
@@ -31,7 +31,7 @@
                         <td>{{$item->tiet->tiet_ten}}</td>                         
                         <td>{{$item->phong->phong_ten}}</td>
                         <td>{{$item->danhsach_soluong}}</td>
-                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiandk));}}</td>    
+                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td>     
                         <td>
                             @if($item->danhsach_tinhtrang == 0)
                                 Chưa duyệt

@@ -51,11 +51,12 @@ class TeacherHomeController extends Controller
         $tiet = Tiet::orderBy('id', 'asc')->get();
         $phong = [];
         if ($request->danhsach_thoigiansd > now() && $request->tiet_id && $request->danhsach_soluong) {
-            $phong = Phong::orderBy('id', 'asc')->withCount(['dangky' => function ($query) use ($request) {
+            $phong = Phong::orderBy('id', 'asc')
+            ->withSum(['dangky as dangky_count' => function ($query) use ($request) {
                 $query->where('danhsach_tinhtrang', 1)
                     ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
                     ->where('tiet_id', $request->tiet_id);
-            }])
+            }],'danhsach_soluong')
             ->withCount(['may' => function ($query) use ($request) {
                 $query->where('may_tinhtrang', 1);
             }])
@@ -126,7 +127,7 @@ class TeacherHomeController extends Controller
                         ->where('tiet_id', $tiet_id)
                         ->where('phong_id',  $phong_after_check_id)
                         ->where('danhsach_tinhtrang', 1)
-                        ->count();
+                        ->sum('danhsach_soluong');
 
                     //Tìm tổng số lượng máy của phòng theo phong_id
                     $phong = Phong::where('id', $phong_after_check_id)->first();
