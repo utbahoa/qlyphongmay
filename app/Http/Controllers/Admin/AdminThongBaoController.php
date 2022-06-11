@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AdminThongBaoController extends Controller
 {
     public function index() {
-        $page_title = 'Quản lý thông báo';
+        $page_title = 'Quản lý phản hồi';
         return view('admin.thongbao.index', compact('page_title'));
     }
 }

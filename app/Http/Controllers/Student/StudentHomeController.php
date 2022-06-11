@@ -113,7 +113,6 @@ class StudentHomeController extends Controller
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
                     ->where('tiet_id', $tiet_id)
-                    ->where('phong_id',  $phong_after_check_id)
                     ->where('user_id', $user_id)
                     ->count();
                 if ($check_dangky == 0) {
@@ -182,5 +181,10 @@ class StudentHomeController extends Controller
         $page_title = 'Xem kết quả';
         $chitiet = ChiTietDangKy::with('danhsachdangky', 'phong')->where('danhsach_id', $id)->get();
         return view('student.register-result.index', compact('page_title', 'chitiet'));
+    }
+
+    public function index() {
+        $page_title = 'Phản hồi sinh viên';
+        return view('student.register-feedback.index', compact('page_title'));
     }
 }

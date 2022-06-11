@@ -11,7 +11,7 @@ class AdminMonHocController extends Controller
 {
     public function index() {
         $page_title = 'Quản Lý Môn Học';
-        $monhoc = monhoc::OrderBy('id', 'asc')->get();
+        $monhoc = monhoc::OrderBy('id', 'asc')->paginate(7);
         return view('admin.monhoc.index', compact('page_title','monhoc'));
         
     }

@@ -14,7 +14,7 @@ class AdminNganhController extends Controller
         $page_title = 'Quản lý ngành';
         $khoa = Khoa::all();
         //$nganh = Nganh::orderBy('id', 'asc')->where('khoa', 'khoa.id', '=', 'nganh.khoa_id')->get();
-        $nganh = Nganh::orderBy('id', 'asc')->with('khoa')->get();
+        $nganh = Nganh::orderBy('id', 'asc')->with('khoa')->paginate(6);
         return view('admin.nganh.index', compact('page_title', 'khoa', 'nganh'));
     }
 

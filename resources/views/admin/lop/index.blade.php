@@ -11,10 +11,6 @@
                     <div>
                         <form action="" method="GET">
                             @csrf
-                            <div class="search-box d-flex">
-                                <input type="search" class="search-txt form-control mr-2 col-md-7" name="search" placeholder="Nhập tên ngành ...">
-                                <input type="submit" class="btn btn-info btn-sm mr-4" value="Tìm kiếm" name="search_items">
-                            </div>
                         </form>
                     </div>
                     <a href="{{route('admin.lop.create')}}" class="btn btn-primary text-uppercase" title="Thêm">
@@ -49,6 +45,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class=" col-sm-12 text-right text-center-xs mt-2">
+                <div class="pagination d-flex justify-content-center"> {{$lop->links('paginationlinks')}}</div>
+            </div>
         </div>
     </div>
     @endsection

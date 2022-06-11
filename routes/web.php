@@ -157,6 +157,7 @@ Route::namespace('Student')->group(function () {
                 Route::post('/register', [StudentHomeController::class, 'register'])->name('student.computer-register.register');
                 Route::get('/register-history', [StudentHomeController::class, 'registerHistory'])->name('student.computer-register.register-history');
                 Route::get('/register-result/{id}', [StudentHomeController::class, 'registerResult'])->name('student.computer-register.register-result');
+                Route::get('/register-feedback/{id}', [StudentHomeController::class, 'registerFeedback'])->name('student.computer-register.register-feedback');
             });
         });
     });

@@ -12,7 +12,8 @@
                         <th>STT</th>
                         <th>Ngày</th>
                         <th>Phòng</th>   
-                        <th>Máy</th>   
+                        <th>Máy</th>
+                        <th>Phản hồi</th>   
                     </tr>
                 </thead>
                 <tbody>  
@@ -21,7 +22,12 @@
                         <td>{{$item->danhsach_id}}</td>
                         <td>{{date('d/m/Y', strtotime($item->thoigiansd))}}</td>
                         <td>{{$item->phong->phong_ten}}</td>    
-                        <td>{{$item->may->may_ten}}</td>   
+                        <td>{{$item->may->may_ten}}</td>
+                        <td> 
+                        <a href="" class="btn btn-success text-uppercase" title="gui">
+                                Gửi
+                            </a>
+                        </td>   
                     </tr>
                     @endforeach
                 </tbody>

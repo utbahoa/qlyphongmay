@@ -4,7 +4,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <h1 class="h3 mb-0 text-gray-800">Quản lý Thông Báo</h1>
+                <h1 class="h3 mb-0 text-gray-800">Quản lý Phản hồi</h1>
             </div>
         </div>
     </div>

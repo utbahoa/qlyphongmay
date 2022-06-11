@@ -166,6 +166,11 @@ class AdminDanhSachDangKyController extends Controller
         $phong_id = $danhsach->phong_id;
         $tiet_id = $danhsach->tiet_id;
         $danhsach_soluong = $danhsach->danhsach_soluong;
+        $tiet = Tiet::where('id', $tiet_id)->first();
+        $tiet_ten = $tiet->tiet_ten;
+
+        $phong = Phong::where('id', $phong_id)->first();
+        $phong_ten = $phong->phong_ten;
 
 
         //Lấy ra tổng số lượng máy của phòng
@@ -235,7 +240,9 @@ class AdminDanhSachDangKyController extends Controller
             'soluongmayhong',
             'soluongdadangky',
             'soluongconlai',
-            'chitiet'
+            'chitiet',
+            'tiet_ten',
+            'phong_ten'
         ));
     }
 
