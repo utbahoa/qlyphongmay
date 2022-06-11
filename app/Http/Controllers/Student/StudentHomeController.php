@@ -13,6 +13,7 @@ use App\Models\Phong;
 use App\Models\May;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
+use App\Models\TKBSV;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -110,6 +111,16 @@ class StudentHomeController extends Controller
                     'danhsach_soluong' => 1,
                 ];
 
+                //Check lịch học
+                $thu_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
+                $thoikhoabieu_sv = TKBSV::where('thu', $thu_convert)
+                ->where('tiet_id', $tiet_id)
+                ->count();
+                if($thoikhoabieu_sv > 0) {
+                    Toastr::error('Trùng lịch học của bạn', 'Thất bại');
+                    return redirect()->back();
+                }
+
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
                     ->where('tiet_id', $tiet_id)
@@ -156,7 +167,7 @@ class StudentHomeController extends Controller
                         return redirect()->route('student.computer-register.index');
                     }
                 } else {
-                    Toastr::error('Đã đăng ký', 'Thất bại');
+                    Toastr::error('Tiết đó đã đăng ký', 'Thất bại');
                     return redirect()->back();
                 }
             }

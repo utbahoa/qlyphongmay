@@ -10,6 +10,7 @@ use App\Models\Nganh;
 use App\Models\May;
 use App\Models\Lop;
 use App\Models\Tiet;
+use App\Models\TKBGV;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
@@ -103,12 +104,22 @@ class TeacherHomeController extends Controller
                     'danhsach_tinhtrang' =>  $danhsach_tinhtrang,
                     'quyen' => $quyen
                 ];
+                //check lịch dạy giảng viên
+                $thu_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
+                $thoikhoabieu_gv = TKBGV::where('thu', $thu_convert)
+                ->where('tiet_id', $tiet_id)
+                //->where('phong_id',  $phong_after_check_id)
+                ->count();
+                if($thoikhoabieu_gv > 0) {
+                    Toastr::error('Trùng lịch dạy của bạn', 'Thất bại');
+                    return redirect()->back();
+                }
 
-                //Check sinh viên đã đăng ký chưa 
+                //Check sinh giảng đã đăng ký chưa 
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
                     ->where('tiet_id', $tiet_id)
-                    ->where('phong_id',  $phong_after_check_id)
+                    //->where('phong_id',  $phong_after_check_id)
                     ->where('user_id', $user_id)
                     ->count();
                 if ($check_dangky == 0) {
