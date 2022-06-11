@@ -24,6 +24,10 @@
                         <input type="hidden" name="tiet_id" value="{{$tiet_id}}"> 
                         <input type="hidden" name="thoigiansd" value="{{$danhsach_thoigiansd}}">
                         <input type="hidden" name="danhsach_nguoiduyet" value="{{Auth::user()->name}}">
+                        <input type="hidden" name="user_id" value="{{$user_id}}">
+                        <input type="hidden" name="phong_ten" value="{{$phong_ten}}">
+                        <input type="hidden" name="tiet_ten" value="{{$tiet_ten}}">
+
                         <div class="d-flex flex-wrap">
                             @foreach($list_computer as $key => $item)
                             <div class="col-md-2 mb-3">

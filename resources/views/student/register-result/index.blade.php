@@ -24,9 +24,15 @@
                         <td>{{$item->phong->phong_ten}}</td>    
                         <td>{{$item->may->may_ten}}</td>
                         <td> 
-                        <a href="" class="btn btn-success text-uppercase" title="gui">
-                                Gửi
+                        @if($item->thoigiansd  < date('Y-m-d'))
+                            <a href="{{route('student.computer-register.register-feedback', $item->danhsach_id)}}" class="btn btn-success text-uppercase" title="gui">
+                                Báo cáo
                             </a>
+                        @else
+                        <a href="#" class="btn btn-danger text-uppercase" title="gui">
+                                Báo Cáo
+                        </a>
+                        @endif
                         </td>   
                     </tr>
                     @endforeach

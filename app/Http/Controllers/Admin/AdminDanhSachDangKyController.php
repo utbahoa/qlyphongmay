@@ -10,6 +10,9 @@ use App\Models\Tiet;
 use App\Models\DanhSachDangKy;
 use App\Models\ChiTietDangKy;
 use App\Models\ThoiKhoaBieu;
+use App\Models\ThongBao;
+use App\Models\PhanHoi;
+
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +37,8 @@ class AdminDanhSachDangKyController extends Controller
         $danhsach_id = $danhsach->id;
         $phong_id = $danhsach->phong_id;
         $tiet_id = $danhsach->tiet_id;
+
+        $user_id = $danhsach->user_id;
 
         $tiet = Tiet::where('id', $tiet_id)->first();
         $tiet_ten = $tiet->tiet_ten;
@@ -92,7 +97,7 @@ class AdminDanhSachDangKyController extends Controller
             'tiet',
             'tiet_ten',
             'phong',
-
+            'user_id',
             'list_computer',
             'tongsoluong',
             'danhsach_thoigiansd',
@@ -125,14 +130,26 @@ class AdminDanhSachDangKyController extends Controller
                 $tiet_id = $request->tiet_id;
                 $may_after_check_id = $item;
                 $thoigiansd = $request->thoigiansd;
-                $data = [
+                $chitiet_data = [
                     'danhsach_id' => $danhsach_id,
                     'phong_id' => $phong_id,
                     'tiet_id' => $tiet_id,
                     'may_id' => $may_after_check_id,
                     'thoigiansd' => $thoigiansd,
                 ];
-                ChiTietDangKy::create($data);
+                ChiTietDangKy::create($chitiet_data);
+
+                $thongbao_data = [
+                    date_default_timezone_set('Asia/Ho_Chi_Minh'),
+                    'user_id' => $request->user_id,
+                    'thongbao_ten' => 'Yêu cầu đăng ký của bạn đã được duyệt',
+                    'ngay' => $request->thoigiansd,
+                    'phong_ten' => $request->phong_ten,
+                    'tiet_ten' => $request->tiet_ten,
+                    'thongbao_thoigian' => now(),
+                    'thongbao_tinhtrang' => 1 
+                ];
+                ThongBao::create($thongbao_data);
 
                 //Lấy ra danh sách sinh viên để update cho họ 
                 $danhsach = DanhSachDangKy::where('id', $danhsach_id)->first();
@@ -163,6 +180,7 @@ class AdminDanhSachDangKyController extends Controller
         $page_title = 'Danh sách máy';
         $danhsach = DanhSachDangKy::with('chitietdangky')->where('id', $id)->first();
         $danhsach_id = $danhsach->id;
+       
         $phong_id = $danhsach->phong_id;
         $tiet_id = $danhsach->tiet_id;
         $danhsach_soluong = $danhsach->danhsach_soluong;
@@ -171,6 +189,8 @@ class AdminDanhSachDangKyController extends Controller
 
         $phong = Phong::where('id', $phong_id)->first();
         $phong_ten = $phong->phong_ten;
+
+        $user_id = $danhsach->user_id;
 
 
         //Lấy ra tổng số lượng máy của phòng
@@ -229,6 +249,7 @@ class AdminDanhSachDangKyController extends Controller
             'phong_id',
             'tiet_id',
             'phong',
+            'user_id',
 
             'list_computer',
             'tongsoluong',

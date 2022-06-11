@@ -14,6 +14,10 @@ use App\Models\May;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
 use App\Models\TKBSV;
+use App\Models\ThongBao;
+use App\Models\PhanHoi;
+
+
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -22,10 +26,17 @@ use Illuminate\Support\Facades\DB;
 
 class StudentHomeController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
         $page_title = 'Home';
-        return view('student.dashboard.index', compact('page_title'));
+        $student_id = Auth::id();
+        $thongbao_count =  ThongBao::orderBy('thongbao_thoigian', 'desc')
+        ->where('user_id', $student_id)
+        ->count();
+        $thongbao = ThongBao::orderBy('thongbao_thoigian', 'desc')
+        ->where('user_id', $student_id)
+        ->get();
+        return view('student.dashboard.index', compact('page_title', 'thongbao', 'thongbao_count'));
     }
 
     public function information()
@@ -194,8 +205,37 @@ class StudentHomeController extends Controller
         return view('student.register-result.index', compact('page_title', 'chitiet'));
     }
 
-    public function index() {
+    public function registerFeedback($id) {
         $page_title = 'Phản hồi sinh viên';
-        return view('student.register-feedback.index', compact('page_title'));
+        $chitiet = ChiTietDangKy::where('danhsach_id', $id)->first();
+        $phong = Phong::where('id', $chitiet->phong_id)->first();
+        $phong_ten = $phong->phong_ten;
+        $may = May::where('id', $chitiet->may_id)->first();
+        $may_ten = $may->may_ten;
+        return view('student.register-feedback.index', compact('page_title', 'chitiet', 'phong_ten', 'may_ten'));
+    }
+
+    public function storeFeedback(Request $request) {
+        $request->validate(
+            [
+                'phanhoi_noidung' => 'required',               
+            ],
+            [
+                'phanhoi_noidung.required' => 'Nội dung phản hồi là bắt buộc',
+            ]
+        );
+        $user_id =  Auth::user()->id;
+        $data = [
+            date_default_timezone_set('Asia/Ho_Chi_Minh'),
+            'user_id' => $user_id,
+            'phong_ten' => $request->phong_ten,
+            'may_ten' => $request->may_ten,
+            'phanhoi_noidung' => $request->phanhoi_noidung,
+            'phanhoi_thoigian' => now()
+        ];
+        PhanHoi::create($data);
+        Toastr::success('Gửi phản hồi thành công', 'Thành công');
+        return redirect()->back();
+        
     }
 }

@@ -117,12 +117,12 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/delete/{id}', [AdminMonHocController::class, 'destroy'])->name('admin.monhoc.delete');
             });
 
-            Route::prefix('thongbao')->group(function () {
-                Route::get('/', [AdminThongBaoController::class, 'index'])->name('admin.thongbao.index');
+            Route::prefix('phanhoi')->group(function () {
+                Route::get('/', [AdminPhanHoiController::class, 'index'])->name('admin.phanhoi.index');
             });
 
             
-                Route::prefix('dangky')->group(function () {
+            Route::prefix('dangky')->group(function () {
                     Route::prefix('sinhvien')->group(function () {
                         Route::get('/', [AdminDanhSachDangKyController::class, 'index'])->name('admin.dangky.sinhvien.index');
                         Route::get('/phong/{id}', [AdminDanhSachDangKyController::class, 'getComputer'])->name('admin.dangky.sinhvien.get_computer');
@@ -158,6 +158,7 @@ Route::namespace('Student')->group(function () {
                 Route::get('/register-history', [StudentHomeController::class, 'registerHistory'])->name('student.computer-register.register-history');
                 Route::get('/register-result/{id}', [StudentHomeController::class, 'registerResult'])->name('student.computer-register.register-result');
                 Route::get('/register-feedback/{id}', [StudentHomeController::class, 'registerFeedback'])->name('student.computer-register.register-feedback');
+                Route::post('/store-feedback', [StudentHomeController::class, 'storeFeedback'])->name('student.computer-register.store-feedback');
             });
         });
     });
