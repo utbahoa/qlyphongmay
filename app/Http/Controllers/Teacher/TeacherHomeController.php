@@ -12,6 +12,7 @@ use App\Models\Lop;
 use App\Models\Tiet;
 use App\Models\TKBGV;
 use App\Models\PhanHoi;
+use App\Models\MonHoc;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
@@ -219,5 +220,15 @@ class TeacherHomeController extends Controller
         Toastr::success('Gửi phản hồi thành công', 'Thành công');
         return redirect()->back();
         
+    }
+
+    public function thoikhoabgv()
+    {   
+        $teacher_id = Auth::id();
+        $page_title = 'Thời khóa biểu';
+        $monhoc = MonHoc::orderBy('id','asc')->get();
+        //tkbsv::orderBy('id', 'asc')->where('student_id', $student_id)->get();
+        $thoikhoabgv = tkbgv::orderBy('id', 'asc')->where('user_id', $teacher_id )->get();
+        return view('teacher.thoikhoabieu.index', compact('page_title','thoikhoabgv','monhoc'));
     }
 }

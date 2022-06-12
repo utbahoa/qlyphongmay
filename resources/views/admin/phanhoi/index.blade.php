@@ -28,9 +28,10 @@
                         <td>{{$item->phanhoi_noidung}}</td> 
                         <td>{{date('d/m/Y', strtotime($item->phanhoi_thoigian))}}</td>
                         <td>
-                            <a href="" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa phòng này không?')">
+                            <a href="{{route('admin.phanhoi.destroy',$item->id)}}" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa phòng này không?')">
                             Delete
                             </a>
+                            
                         </td>
                     </tr>
                     @endforeach

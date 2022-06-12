@@ -11,6 +11,7 @@ use App\Models\Lop;
 use App\Models\Tiet;
 use App\Models\Phong;
 use App\Models\May;
+use App\Models\MonHoc;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
 use App\Models\TKBSV;
@@ -238,4 +239,15 @@ class StudentHomeController extends Controller
         return redirect()->back();
         
     }
+
+    public function tkbsv()
+    {   
+        $student_id = Auth::id();
+        $page_title = 'Thời khóa biểu';
+        $monhoc = MonHoc::orderBy('id','asc')->get();
+        //tkbsv::orderBy('id', 'asc')->where('student_id', $student_id)->get();
+        $tkbsv = tkbsv::orderBy('id', 'asc')->where('user_id', $student_id)->get();
+        return view('student.thoikhoabieu.index', compact('page_title','tkbsv','monhoc'));
+    }
+
 }

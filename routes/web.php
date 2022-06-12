@@ -124,6 +124,7 @@ Route::namespace('Admin')->group(function () {
 
             Route::prefix('phanhoi')->group(function () {
                 Route::get('/', [AdminPhanHoiController::class, 'index'])->name('admin.phanhoi.index');
+                Route::get('/delete/{id}', [AdminPhanHoiController::class, 'destroy'])->name('admin.phanhoi.destroy');
             });
 
             
@@ -156,6 +157,10 @@ Route::namespace('Student')->group(function () {
                 Route::get('/', [StudentHomeController::class, 'information'])->name('student.information');
                 Route::post('update/{id}', [StudentHomeController::class, 'update'])->name('student.update_information');
             });
+            
+            Route::prefix('tkbsv')->group(function() {
+              Route::get('/', [StudentHomeController::class, 'tkbsv'])->name('student.tkbsv');
+            });
 
             Route::prefix('computer-register')->group(function() {
                 Route::get('/', [StudentHomeController::class, 'computerRegister'])->name('student.computer-register.index');
@@ -179,7 +184,11 @@ Route::namespace('Teacher')->group(function () {
                 Route::get('/', [TeacherHomeController::class, 'information'])->name('teacher.information');
                 Route::post('update/{id}', [TeacherHomeController::class, 'update'])->name('teacher.update_information');
             });    
-
+            
+            Route::prefix('thoikhoabgv')->group(function() {
+                Route::get('/', [TeacherHomeController::class, 'thoikhoabgv'])->name('teacher.thoikhoabgv');
+              });
+  
             Route::prefix('computer-register')->group(function() {
                 Route::get('/', [TeacherHomeController::class, 'computerRegister'])->name('teacher.computer-register.index');
                 Route::post('/register', [TeacherHomeController::class, 'register'])->name('teacher.computer-register.register');

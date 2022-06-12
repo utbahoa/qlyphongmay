@@ -45,7 +45,7 @@
                 <div style="margin-top: 30px;"></div>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        
                         <th>Thứ</th>
                         <th>Tên phòng</th>
                         <th>Môn học</th>
@@ -58,13 +58,13 @@
                 <tbody>
                     @foreach($thoikhoabieu as $key => $item)
                     <tr>
-                        <td>{{$item->id}}</td>
+                        
                         <td>{{$item->thu}}</td>
                         <td>{{$item->phong->phong_ten}}</td>
                         <td>{{$item->monhoc->monhoc_ten}}</td>
                         <td>{{$item->tiet->tiet_ten}}</td>
                         <td>{{$item->soluongmaysudung}}</td>
-                        <td>{{$item->hocky_id}}</td>
+                        <td>{{$item->hocky->hocky_ten}}</td>
                         <td>
                             <a href="{{route('admin.thoikhoabieu.edit', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
                             Edit
