@@ -75,6 +75,11 @@
                <span>Quản lý Ngành</span></a>
        </li>
        <li class="nav-item">
+           <a class="nav-link" href="{{route('admin.thoikhoabieu.index')}}">
+               <i class="fas fa-fw fa-table"></i>
+               <span>Quản lý Thời khóa biểu</span></a>
+       </li>
+       <li class="nav-item">
            <a class="nav-link" href="{{route('admin.phanhoi.index')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Xem Phản Hồi</span></a>

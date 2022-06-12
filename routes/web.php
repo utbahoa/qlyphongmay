@@ -12,10 +12,9 @@ use App\Http\Controllers\Admin\AdminKhoaController;
 use App\Http\Controllers\Admin\AdminMonHocController;
 use App\Http\Controllers\Admin\AdminLopController;
 use App\Http\Controllers\Admin\AdminNganhController;
-use App\Http\Controllers\Admin\AdminThongBaoController;
+use App\Http\Controllers\Admin\AdminPhanHoiController;
 use App\Http\Controllers\Admin\AdminDanhSachDangKyController;
-
-
+use App\Http\Controllers\Admin\AdminThoiKhoaBieuController;
 
 use App\Http\Controllers\Student\StudentHomeController;
 use App\Http\Controllers\Teacher\TeacherHomeController;
@@ -108,6 +107,15 @@ Route::namespace('Admin')->group(function () {
                 Route::get('/delete/{id}', [AdminNganhController::class, 'destroy'])->name('admin.nganh.destroy');
             });
 
+            Route::prefix('thoikhoabieu')->group(function () {
+                Route::get('/', [AdminThoiKhoaBieuController::class, 'index'])->name('admin.thoikhoabieu.index');
+                Route::get('/create', [AdminThoiKhoaBieuController::class, 'create'])->name('admin.thoikhoabieu.create');
+                Route::post('/store', [AdminThoiKhoaBieuController::class, 'store'])->name('admin.thoikhoabieu.store');
+                Route::get('/edit/{id}', [AdminThoiKhoaBieuController::class, 'edit'])->name('admin.thoikhoabieu.edit');
+                Route::post('/update/{id}', [AdminThoiKhoaBieuController::class, 'update'])->name('admin.thoikhoabieu.update');
+                Route::get('/delete/{id}', [AdminThoiKhoaBieuController::class, 'destroy'])->name('admin.thoikhoabieu.destroy');
+            });
+
             Route::prefix('monhoc')->group(function () {
                 Route::get('/', [AdminMonHocController::class, 'index'])->name('admin.monhoc.index');
                 Route::get('/create', [AdminMonHocController::class, 'create'])->name('admin.monhoc.create');
@@ -180,6 +188,8 @@ Route::namespace('Teacher')->group(function () {
                 Route::post('/register', [TeacherHomeController::class, 'register'])->name('teacher.computer-register.register');
                 Route::get('/register-history', [TeacherHomeController::class, 'registerHistory'])->name('teacher.computer-register.register-history');
                 Route::get('/register-result/{id}', [TeacherHomeController::class, 'registerResult'])->name('teacher.computer-register.register-result');
+                Route::get('/register-feedback/{id}', [TeacherHomeController::class, 'registerFeedback'])->name('teacher.computer-register.register-feedback');
+                Route::post('/store-feedback', [TeacherHomeController::class, 'storeFeedback'])->name('teacher.computer-register.store-feedback');
             });
         });
     });

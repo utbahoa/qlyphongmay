@@ -5,7 +5,7 @@
         <h6 class="m-0 font-weight-bold text-primary text-center">Phản hồi</h6>
     </div>
     <div class="card-body">
-        <form action="{{route('student.computer-register.store-feedback')}}" method="POST">
+        <form action="{{route('teacher.computer-register.store-feedback')}}" method="POST">
             @csrf
             <div class="form-group">
                 <?php

@@ -11,6 +11,7 @@ use App\Models\May;
 use App\Models\Lop;
 use App\Models\Tiet;
 use App\Models\TKBGV;
+use App\Models\PhanHoi;
 use App\Models\Phong;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
@@ -184,5 +185,39 @@ class TeacherHomeController extends Controller
         $page_title = 'Xem kết quả';
         $chitiet = ChiTietDangKy::with('danhsachdangky', 'phong')->where('danhsach_id', $id)->get();
         return view('teacher.register-result.index', compact('page_title', 'chitiet'));
+    }
+
+    public function registerFeedback($id) {
+        $page_title = 'Phản hồi sinh viên';
+        $chitiet = ChiTietDangKy::where('danhsach_id', $id)->first();
+        $phong = Phong::where('id', $chitiet->phong_id)->first();
+        $phong_ten = $phong->phong_ten;
+        $may = May::where('id', $chitiet->may_id)->first();
+        $may_ten = $may->may_ten;
+        return view('teacher.register-feedback.index', compact('page_title', 'chitiet', 'phong_ten', 'may_ten'));
+    }
+
+    public function storeFeedback(Request $request) {
+        $request->validate(
+            [
+                'phanhoi_noidung' => 'required',               
+            ],
+            [
+                'phanhoi_noidung.required' => 'Nội dung phản hồi là bắt buộc',
+            ]
+        );
+        $user_id =  Auth::user()->id;
+        $data = [
+            date_default_timezone_set('Asia/Ho_Chi_Minh'),
+            'user_id' => $user_id,
+            'phong_ten' => $request->phong_ten,
+            'may_ten' => $request->may_ten,
+            'phanhoi_noidung' => $request->phanhoi_noidung,
+            'phanhoi_thoigian' => now()
+        ];
+        PhanHoi::create($data);
+        Toastr::success('Gửi phản hồi thành công', 'Thành công');
+        return redirect()->back();
+        
     }
 }

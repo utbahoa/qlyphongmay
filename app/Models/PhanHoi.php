@@ -13,4 +13,9 @@ class PhanHoi extends Model
     ];
 
     protected $table = 'phanhoi';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
