@@ -23,6 +23,7 @@ class AdminMayController extends Controller
         return view('admin.may.index', compact('page_title', 'phong', 'may'));      
     }
 
+
     public function create(){
         $page_title = 'Thêm máy';
         $phong = Phong::all();

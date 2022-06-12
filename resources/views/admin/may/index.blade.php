@@ -16,22 +16,21 @@
                                     <select name="phong_id" id="phong_id" class="form-control">
                                         <option selected value>---Tất cả---</option>
                                         @foreach($phong as $key => $item)
-                                            <option value="{{$item->id}}" @if($item->id == request()->phong_id) selected @endif>{{$item->phong_ten}}</option>
+                                        <option value="{{$item->id}}" @if($item->id == request()->phong_id) selected @endif>{{$item->phong_ten}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="d-flex align-items-end">
-                             <button class="btn btn-primary ml-4 mb-3">Lọc</button>
-                        </div>
+                                    <button class="btn btn-primary ml-4 mb-3">Lọc</button>
+                                </div>
                             </div>
                         </form>
                     </div>
                     <div class="d-flex align-items-end">
-                    <a href="{{route('admin.may.create')}}" class="btn btn-primary text-uppercase align-item-end mb-3" title="Thêm">
-                        Thêm
-                    </a>
-                        </div>
-                   
+                        <a href="{{route('admin.may.create')}}" class="btn btn-primary text-uppercase align-item-end mb-3" title="Thêm">
+                            Thêm
+                        </a>
+                    </div>
                 </div>
 
                 <div style="margin-top: 30px;"></div>

@@ -22,7 +22,7 @@
                     @foreach($phanhoi as $key => $item)
                     <tr>
                         <td>{{$item->id}}</td>
-                        <td>{{$item->user->name}}</td> 
+                        <td>{{$item->user->name}}</td>
                         <td>{{$item->phong_ten}}</td> 
                         <td>{{$item->may_ten}}</td>                        
                         <td>{{$item->phanhoi_noidung}}</td> 

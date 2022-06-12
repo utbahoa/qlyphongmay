@@ -108,12 +108,9 @@ Route::namespace('Admin')->group(function () {
             });
 
             Route::prefix('thoikhoabieu')->group(function () {
-                Route::get('/', [AdminThoiKhoaBieuController::class, 'index'])->name('admin.thoikhoabieu.index');
-                Route::get('/create', [AdminThoiKhoaBieuController::class, 'create'])->name('admin.thoikhoabieu.create');
-                Route::post('/store', [AdminThoiKhoaBieuController::class, 'store'])->name('admin.thoikhoabieu.store');
+                Route::get('/', [AdminThoiKhoaBieuController::class, 'index'])->name('admin.thoikhoabieu.index');            
                 Route::get('/edit/{id}', [AdminThoiKhoaBieuController::class, 'edit'])->name('admin.thoikhoabieu.edit');
-                Route::post('/update/{id}', [AdminThoiKhoaBieuController::class, 'update'])->name('admin.thoikhoabieu.update');
-                Route::get('/delete/{id}', [AdminThoiKhoaBieuController::class, 'destroy'])->name('admin.thoikhoabieu.destroy');
+                Route::post('/update/{id}', [AdminThoiKhoaBieuController::class, 'update'])->name('admin.thoikhoabieu.update');                
             });
 
             Route::prefix('monhoc')->group(function () {

@@ -9,15 +9,15 @@ class ThoiKhoaBieu extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'ngay', 'phong_id', 'monhoc_id', 'tiet_id', 'soluongmaysudung','hocky_id'
+        'thu', 'phong_id', 'monhoc_id', 'tiet_id', 'soluongmaysudung','hocky_id'
     ];
 
     public function phong() {
-        return $this->hasMany(Phong::class, 'phong_id', 'id');
+        return $this->belongsTo(Phong::class, 'phong_id', 'id');
     }
 
     public function monhoc() {
-        return $this->belongsTo(MonHoc::class, 'mochoc_id', 'id');
+        return $this->belongsTo(MonHoc::class, 'monhoc_id', 'id');
     }
 
     public function tiet() {
@@ -27,4 +27,6 @@ class ThoiKhoaBieu extends Model
     public function hocky() {
         return $this->belongsTo(HocKy::class, 'hocky_id', 'id');
     }
+
+    protected $table = 'thoikhoabieu';
 }
