@@ -30,8 +30,7 @@
                         <td>
                             <a href="{{route('admin.phanhoi.destroy',$item->id)}}" class="btn btn-danger text-uppercase delete" title="Xóa" onclick="return confirm('Bạn có muốn xóa phòng này không?')">
                             Delete
-                            </a>
-                            
+                            </a>   
                         </td>
                     </tr>
                     @endforeach

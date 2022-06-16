@@ -3,7 +3,7 @@
 @section('page_content')
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary text-center">Đăng ký máy</h6>
+        <h6 class="m-0 font-weight-bold text-primary text-center">Duyệt đăng ký máy</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -26,7 +26,7 @@
                         <input type="hidden" name="danhsach_nguoiduyet" value="{{Auth::user()->name}}">
                         <div class="d-flex flex-wrap">
                             @foreach($list_computer as $key => $item)
-                            <div class="col-md-2 mb-3">
+                            <div class="col-md-1">
                                 <div class="card h-100">
                                     <div>
                                         <img class="card-img-top" src="{{asset('admin/img/mycomputer.png')}}">
@@ -44,7 +44,7 @@
                     </div>
                     <hr>
                     <div class="col-md-12 d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success btn-lg">Đăng ký</button>
+                        <button type="submit" class="btn btn-success btn-lg">Duyệt</button>
                     </div>
                 </form>
             </table>

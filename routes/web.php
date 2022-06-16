@@ -169,6 +169,7 @@ Route::namespace('Student')->group(function () {
                 Route::get('/register-result/{id}', [StudentHomeController::class, 'registerResult'])->name('student.computer-register.register-result');
                 Route::get('/register-feedback/{id}', [StudentHomeController::class, 'registerFeedback'])->name('student.computer-register.register-feedback');
                 Route::post('/store-feedback', [StudentHomeController::class, 'storeFeedback'])->name('student.computer-register.store-feedback');
+                Route::get('/delete/{id}', [StudentHomeController::class, 'destroy'])->name('student.computer-register.destroy');
             });
         });
     });

@@ -36,7 +36,7 @@
                             @if($item->danhsach_tinhtrang == 0)
                                 Chưa duyệt
                             @else
-                                Đã duyệt
+                            <a href="" style="color:blue; font-weight:bold" class="text-primary">Đã duyệt</a>
                             @endif
                         </td>
                         <td>

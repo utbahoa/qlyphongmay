@@ -139,17 +139,17 @@ class AdminDanhSachDangKyController extends Controller
                 ];
                 ChiTietDangKy::create($chitiet_data);
 
-                $thongbao_data = [
-                    date_default_timezone_set('Asia/Ho_Chi_Minh'),
-                    'user_id' => $request->user_id,
-                    'thongbao_ten' => 'Yêu cầu đăng ký của bạn đã được duyệt',
-                    'ngay' => $request->thoigiansd,
-                    'phong_ten' => $request->phong_ten,
-                    'tiet_ten' => $request->tiet_ten,
-                    'thongbao_thoigian' => now(),
-                    'thongbao_tinhtrang' => 1 
-                ];
-                ThongBao::create($thongbao_data);
+                // $thongbao_data = [
+                //     date_default_timezone_set('Asia/Ho_Chi_Minh'),
+                //     'user_id' => $request->user_id,
+                //     'thongbao_ten' => 'Yêu cầu đăng ký của bạn đã được duyệt',
+                //     'ngay' => $request->thoigiansd,
+                //     'phong_ten' => $request->phong_ten,
+                //     'tiet_ten' => $request->tiet_ten,
+                //     'thongbao_thoigian' => now(),
+                //     'thongbao_tinhtrang' => 1 
+                // ];
+                // ThongBao::create($thongbao_data);
 
                 //Lấy ra danh sách sinh viên để update cho họ 
                 $danhsach = DanhSachDangKy::where('id', $danhsach_id)->first();

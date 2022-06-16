@@ -44,7 +44,7 @@
                                 $soluongconlai = $item->may_count - optional($item->thoikhoabieu)->first()->soluongmaysudung - $item->dangky_count
                             @endphp
                             @if($soluongconlai >= request()->danhsach_soluong)
-                                <div class="col-md-3 mb-3">
+                                <div class="col-md-2 mb-2">
                                     <div class="card h-100">
                                         <div>
                                             <img class="card-img-top" src="{{asset('admin/img/computer.png')}}">

@@ -35,11 +35,6 @@
                             </div>
                         </form>
                     </div>
-                    <div class="d-flex align-items-end">
-                        <a href="" class="btn btn-primary text-uppercase align-item-end mb-3" title="Thêm">
-                            Thêm
-                        </a>
-                    </div>
                 </div>
 
                 <div style="margin-top: 30px;"></div>

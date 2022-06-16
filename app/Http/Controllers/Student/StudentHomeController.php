@@ -234,10 +234,15 @@ class StudentHomeController extends Controller
             'phanhoi_noidung' => $request->phanhoi_noidung,
             'phanhoi_thoigian' => now()
         ];
+        if (PhanHoi::where('may_ten', '=', $request->may_ten)   
+            ->count() > 0) {
+            Toastr::error('message','Bạn đã báo cáo máy này');
+            return redirect()->back();
+        }else{
         PhanHoi::create($data);
         Toastr::success('Gửi phản hồi thành công', 'Thành công');
         return redirect()->back();
-        
+        }  
     }
 
     public function tkbsv()

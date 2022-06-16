@@ -9,13 +9,6 @@
             <table class="table table-bordered" id="" width="100%" cellspacing="0">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <form action="" method="GET">
-                            @csrf
-                            <div class="search-box d-flex">
-                                <input type="search" class="search-txt form-control mr-2 col-md-7" name="search" placeholder="Nhập tên phòng ...">
-                                <input type="submit" class="btn btn-info btn-sm mr-4" value="Tìm kiếm" name="search_items">
-                            </div>
-                        </form>
                     </div>
                     <a href="{{route('admin.phong.create')}}" class="btn btn-primary text-uppercase" title="Thêm">
                        Thêm
