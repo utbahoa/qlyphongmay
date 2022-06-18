@@ -17,7 +17,7 @@
        <li class="nav-item active">
            <a class="nav-link" href="{{route('admin.home')}}">
                <i class="fas fa-fw fa-tachometer-alt"></i>
-               <span>Dashboard</span></a>
+               <span>Thống kê</span></a>
        </li>
        @endcan
 

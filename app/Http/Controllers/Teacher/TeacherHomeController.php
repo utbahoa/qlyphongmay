@@ -65,6 +65,7 @@ class TeacherHomeController extends Controller
             }])
             ->with(['thoikhoabieu' => function($query) use ($request) {
                 $thu = Carbon::parse($request->danhsach_thoigiansd)->weekday() + 1;
+                $thu = $thu == 1 ? 8 : $thu;
                 $query->where('tiet_id', $request->tiet_id)
                 ->where('thu', $thu);
             }])->get();
@@ -127,6 +128,7 @@ class TeacherHomeController extends Controller
                 if ($check_dangky == 0) {
                     //Chuyển ngày sang thứ
                     $ngay_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
+                    $ngay_convert = $ngay_convert == 1 ? 8 : $ngay_convert;
 
                     //Lấy ra số lượng tối đa từ thười khóa biểu
                     $thoikhoabieu = ThoiKhoaBieu::where('thu', $ngay_convert)

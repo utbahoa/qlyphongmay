@@ -32,11 +32,11 @@ class StudentHomeController extends Controller
         $page_title = 'Home';
         $student_id = Auth::id();
         $thongbao_count =  ThongBao::orderBy('thongbao_thoigian', 'desc')
-        ->where('user_id', $student_id)
-        ->count();
+            ->where('user_id', $student_id)
+            ->count();
         $thongbao = ThongBao::orderBy('thongbao_thoigian', 'desc')
-        ->where('user_id', $student_id)
-        ->get();
+            ->where('user_id', $student_id)
+            ->get();
         return view('student.dashboard.index', compact('page_title', 'thongbao', 'thongbao_count'));
     }
 
@@ -66,25 +66,28 @@ class StudentHomeController extends Controller
         $page_title = 'Đăng ký máy trực tuyến';
         $tiet = Tiet::orderBy('id', 'asc')->get();
         $danhsach_thoigiansd = $request->danhsach_thoigiansd;
+
         $phong = [];
         if ($request->danhsach_thoigiansd > now() && $request->tiet_id) {
             $phong = Phong::orderBy('id', 'asc')
-            ->withSum(['dangky as dangky_count' => function ($query) use ($request) {
-                $query->where('danhsach_tinhtrang', 1)
-                    ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
-                    ->where('tiet_id', $request->tiet_id);
-            }],'danhsach_soluong' )
-            
-            ->withCount(['may' => function ($query) use ($request) {
-                $query->where('may_tinhtrang', 1);
-            }])
-            ->with(['thoikhoabieu' => function($query) use ($request) {
-                $thu = Carbon::parse($request->danhsach_thoigiansd)->weekday() + 1;
-                $query->where('tiet_id', $request->tiet_id)
-                ->where('thu', $thu);
-            }])->get();
+                ->withSum(['dangky as dangky_count' => function ($query) use ($request) {
+                    $query->where('danhsach_tinhtrang', 1)
+                        ->whereDate('danhsach_thoigiansd', $request->danhsach_thoigiansd)
+                        ->where('tiet_id', $request->tiet_id);
+                }], 'danhsach_soluong')
+
+                ->withCount(['may' => function ($query) use ($request) {
+                    $query->where('may_tinhtrang', 1);
+                }])
+                ->with(['thoikhoabieu' => function ($query) use ($request) {
+                    $thu = Carbon::parse($request->danhsach_thoigiansd)->weekday() + 1;
+                    $thu = $thu == 1 ? 8 : $thu;
+                    $query->where('tiet_id', $request->tiet_id)
+                        ->where('thu', $thu);
+                }])->get();
         }
         $thoikhoabieu = ThoiKhoaBieu::all();
+
         return view('student.computer-register.index', compact('page_title', 'tiet', 'phong', 'thoikhoabieu', 'danhsach_thoigiansd'));
     }
     public function register(Request $request)
@@ -126,9 +129,9 @@ class StudentHomeController extends Controller
                 //Check lịch học
                 $thu_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
                 $thoikhoabieu_sv = TKBSV::where('thu', $thu_convert)
-                ->where('tiet_id', $tiet_id)
-                ->count();
-                if($thoikhoabieu_sv > 0) {
+                    ->where('tiet_id', $tiet_id)
+                    ->count();
+                if ($thoikhoabieu_sv > 0) {
                     Toastr::error('Trùng lịch học của bạn', 'Thất bại');
                     return redirect()->back();
                 }
@@ -141,9 +144,10 @@ class StudentHomeController extends Controller
                 if ($check_dangky == 0) {
                     //Chuyển ngày sang thứ
                     $ngay_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
-                    //dd($ngay_convert);
+                    $ngay_convert = $ngay_convert == 1 ? 8 : $ngay_convert;
 
-                    //Lấy ra số lượng tối đa từ thười khóa biểu
+
+                    //Lấy ra số lượng tối đa từ thời khóa biểu
                     $thoikhoabieu = ThoiKhoaBieu::where('thu', $ngay_convert)
                         ->where('phong_id', $phong_after_check_id)
                         ->where('tiet_id', $tiet_id)
@@ -167,6 +171,7 @@ class StudentHomeController extends Controller
 
                     //Tính tổng số máy còn lại của phòng, tiết, ngày đó
                     $soluongconlai = $tongsoluongmay - $soluongtoida - $soluongdadangky - $soluongmayhong;
+
                     //dd($soluongconlai);
 
                     //Check xem sinh viên đăng ký phòng được ko dựa trên số máy còn lại
@@ -206,7 +211,8 @@ class StudentHomeController extends Controller
         return view('student.register-result.index', compact('page_title', 'chitiet'));
     }
 
-    public function registerFeedback($id) {
+    public function registerFeedback($id)
+    {
         $page_title = 'Phản hồi sinh viên';
         $chitiet = ChiTietDangKy::where('danhsach_id', $id)->first();
         $phong = Phong::where('id', $chitiet->phong_id)->first();
@@ -216,10 +222,11 @@ class StudentHomeController extends Controller
         return view('student.register-feedback.index', compact('page_title', 'chitiet', 'phong_ten', 'may_ten'));
     }
 
-    public function storeFeedback(Request $request) {
+    public function storeFeedback(Request $request)
+    {
         $request->validate(
             [
-                'phanhoi_noidung' => 'required',               
+                'phanhoi_noidung' => 'required',
             ],
             [
                 'phanhoi_noidung.required' => 'Nội dung phản hồi là bắt buộc',
@@ -234,25 +241,25 @@ class StudentHomeController extends Controller
             'phanhoi_noidung' => $request->phanhoi_noidung,
             'phanhoi_thoigian' => now()
         ];
-        if (PhanHoi::where('may_ten', '=', $request->may_ten)   
-            ->count() > 0) {
-            Toastr::error('message','Bạn đã báo cáo máy này');
+        if (PhanHoi::where('may_ten', '=', $request->may_ten)
+            ->count() > 0
+        ) {
+            Toastr::error('message', 'Bạn đã báo cáo máy này');
             return redirect()->back();
-        }else{
-        PhanHoi::create($data);
-        Toastr::success('Gửi phản hồi thành công', 'Thành công');
-        return redirect()->back();
-        }  
+        } else {
+            PhanHoi::create($data);
+            Toastr::success('Gửi phản hồi thành công', 'Thành công');
+            return redirect()->back();
+        }
     }
 
     public function tkbsv()
-    {   
+    {
         $student_id = Auth::id();
         $page_title = 'Thời khóa biểu';
-        $monhoc = MonHoc::orderBy('id','asc')->get();
+        $monhoc = MonHoc::orderBy('id', 'asc')->get();
         //tkbsv::orderBy('id', 'asc')->where('student_id', $student_id)->get();
         $tkbsv = tkbsv::orderBy('id', 'asc')->where('user_id', $student_id)->get();
-        return view('student.thoikhoabieu.index', compact('page_title','tkbsv','monhoc'));
+        return view('student.thoikhoabieu.index', compact('page_title', 'tkbsv', 'monhoc'));
     }
-
 }

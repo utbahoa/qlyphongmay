@@ -52,6 +52,7 @@ class AdminDanhSachDangKyController extends Controller
         $danhsach_thoigiansd = $danhsach->danhsach_thoigiansd;
         //Chuyển đổi ngày sang thứ
         $ngay_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
+        $ngay_convert = $ngay_convert == 1 ? 8 : $ngay_convert;
         $thoikhoabieu = ThoiKhoaBieu::where('thu',  $ngay_convert)
             ->where('phong_id',  $phong_id)
             ->where('tiet_id', $tiet_id)
@@ -201,6 +202,7 @@ class AdminDanhSachDangKyController extends Controller
         $danhsach_thoigiansd = $danhsach->danhsach_thoigiansd;
         //Chuyển đổi ngày sang thứ
         $ngay_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
+        $ngay_convert = $ngay_convert == 1 ? 8 : $ngay_convert;
         $thoikhoabieu = ThoiKhoaBieu::where('thu',  $ngay_convert)
             ->where('phong_id',  $phong_id)
             ->where('tiet_id', $tiet_id)
