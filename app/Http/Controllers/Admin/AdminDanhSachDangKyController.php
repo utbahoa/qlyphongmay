@@ -85,7 +85,9 @@ class AdminDanhSachDangKyController extends Controller
         $list_computer = May::where('phong_id', $phong_id)->where('may_tinhtrang', 1)
             ->whereNotIn('id', $chitiet)
             ->get()->take($soluongconlai);
-        //Lấy ra danh sách máy
+
+        //Check số lượng máy cđăng ký > số lượng máy còn trống
+
 
 
         return view('admin.dangky.sinhvien.list_computer', compact(
@@ -241,7 +243,11 @@ class AdminDanhSachDangKyController extends Controller
             ->get()->take($soluongconlai);
 
 
-        //Lấy ra danh sách máy
+        //Check số lượng máy cđăng ký > số lượng máy còn trống
+        if($soluongconlai <  $danhsach_soluong) {
+            Toastr::error('Không đủ máy yêu cầu', 'Thất bại');
+            return redirect()->back();
+        }
 
 
         return view('admin.dangky.giangvien.list_computer', compact(
