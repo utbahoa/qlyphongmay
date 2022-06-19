@@ -37,6 +37,7 @@ class AdminDanhSachDangKyController extends Controller
         $danhsach_id = $danhsach->id;
         $phong_id = $danhsach->phong_id;
         $tiet_id = $danhsach->tiet_id;
+        $danhsach_soluong = $danhsach->danhsach_soluong;
 
         $user_id = $danhsach->user_id;
 
@@ -87,7 +88,10 @@ class AdminDanhSachDangKyController extends Controller
             ->get()->take($soluongconlai);
 
         //Check số lượng máy cđăng ký > số lượng máy còn trống
-
+        if($soluongconlai <  $danhsach_soluong) {
+            Toastr::error('Không đủ số lượng máy yêu cầu', 'Thất bại');
+            return redirect()->back();
+        }
 
 
         return view('admin.dangky.sinhvien.list_computer', compact(
@@ -243,9 +247,9 @@ class AdminDanhSachDangKyController extends Controller
             ->get()->take($soluongconlai);
 
 
-        //Check số lượng máy cđăng ký > số lượng máy còn trống
+        //Check số lượng máy đăng ký > số lượng máy còn trống
         if($soluongconlai <  $danhsach_soluong) {
-            Toastr::error('Không đủ máy yêu cầu', 'Thất bại');
+            Toastr::error('Không đủ số lượng máy yêu cầu', 'Thất bại');
             return redirect()->back();
         }
 

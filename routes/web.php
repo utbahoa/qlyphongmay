@@ -110,7 +110,8 @@ Route::namespace('Admin')->group(function () {
             Route::prefix('thoikhoabieu')->group(function () {
                 Route::get('/', [AdminThoiKhoaBieuController::class, 'index'])->name('admin.thoikhoabieu.index');            
                 Route::get('/edit/{id}', [AdminThoiKhoaBieuController::class, 'edit'])->name('admin.thoikhoabieu.edit');
-                Route::post('/update/{id}', [AdminThoiKhoaBieuController::class, 'update'])->name('admin.thoikhoabieu.update');                
+                Route::post('/update/{id}', [AdminThoiKhoaBieuController::class, 'update'])->name('admin.thoikhoabieu.update'); 
+                Route::post('/import', [AdminThoiKhoaBieuController::class, 'import'])->name('admin.thoikhoabieu.import');            
             });
 
             Route::prefix('monhoc')->group(function () {
@@ -158,10 +159,7 @@ Route::namespace('Student')->group(function () {
                 Route::post('update/{id}', [StudentHomeController::class, 'update'])->name('student.update_information');
             });
             
-            Route::prefix('tkbsv')->group(function() {
-              Route::get('/', [StudentHomeController::class, 'tkbsv'])->name('student.tkbsv');
-            });
-
+           
             Route::prefix('computer-register')->group(function() {
                 Route::get('/', [StudentHomeController::class, 'computerRegister'])->name('student.computer-register.index');
                 Route::post('/register', [StudentHomeController::class, 'register'])->name('student.computer-register.register');
@@ -186,9 +184,6 @@ Route::namespace('Teacher')->group(function () {
                 Route::post('update/{id}', [TeacherHomeController::class, 'update'])->name('teacher.update_information');
             });    
             
-            Route::prefix('thoikhoabgv')->group(function() {
-                Route::get('/', [TeacherHomeController::class, 'thoikhoabgv'])->name('teacher.thoikhoabgv');
-              });
   
             Route::prefix('computer-register')->group(function() {
                 Route::get('/', [TeacherHomeController::class, 'computerRegister'])->name('teacher.computer-register.index');

@@ -9,6 +9,8 @@ use App\Models\MonHoc;
 use App\Models\Phong;
 use App\Models\HocKy;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Imports\ThoiKhoaBieuImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Http\Request;
 
@@ -19,6 +21,7 @@ class AdminThoiKhoaBieuController extends Controller
         $page_title = 'Quản lý thời khóa biểu';
         $phong = Phong::orderBy('id', 'asc')->get();
         $tiet = Tiet::OrderBy('id', 'asc')->get();
+        $hocky = HocKy::orderBy('id', 'asc')->get();
         $monhoc = MonHoc::orderBy('id','asc')->get();
         $thoikhoabieu_thu = ThoiKhoaBieu::select('thu')
         ->groupBy('thu')
@@ -32,12 +35,15 @@ class AdminThoiKhoaBieuController extends Controller
         ->when(isset($request->thu), function($query) use ($request) {
             $query->where('thu', $request->thu);
         })
+        ->when(isset($request->hocky_id), function($query) use ($request) {
+            $query->where('hocky_id', $request->hocky_id);
+        })
         ->orderBy('id', 'asc')
-        ->with('monhoc', 'tiet', 'phong')
+        ->with('monhoc', 'tiet', 'phong', 'hocky')
         ->paginate(12)
         ->withQueryString();;
         return view('admin.thoikhoabieu.index', compact('page_title', 'thoikhoabieu', 'monhoc' , 'tiet', 
-        'phong', 'thoikhoabieu_thu', 'thu'));
+        'phong', 'thoikhoabieu_thu', 'thu', 'hocky'));
     }
 
     public function edit($id) {
@@ -65,4 +71,13 @@ class AdminThoiKhoaBieuController extends Controller
         Toastr::success('Cập nhật thời khóa biểu thành công', 'Thành công');
         return redirect()->route('admin.thoikhoabieu.index');
     }
+
+    public function import(Request $request)
+    {
+        $path = $request->file('file')->getRealPath();
+        Excel::import(new ThoiKhoaBieuImport, $path);
+        Toastr::success('Import thời khóa biểu thành công', 'Thành công');
+        return redirect()->back();
+    }
+
 }

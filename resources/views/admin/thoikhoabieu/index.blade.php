@@ -25,7 +25,16 @@
                                     <select name="thu" id="thu" class="form-control">
                                         <option selected value>---Tất cả---</option>
                                         @foreach($thoikhoabieu_thu as $key => $item)
-                                            <option value="{{$item->thu}}" @if($item->thu == request()->thu) selected @endif>{{$item->thu}}</option>
+                                        <option value="{{$item->thu}}" @if($item->thu == request()->thu) selected @endif>{{$item->thu}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group ml-2">
+                                    <label for="hocky_id">Học kỳ</label>
+                                    <select name="hocky_id" id="hocky_id" class="form-control">
+                                        <option selected value>---Tất cả---</option>
+                                        @foreach($hocky as $key => $item)
+                                        <option value="{{$item->id}}" @if($item->id == request()->hocky_id) selected @endif>{{$item->hocky_ten}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -35,43 +44,53 @@
                             </div>
                         </form>
                     </div>
+                    <div class="d-flex ">
+                        <div class="d-flex align-items-end mb-3">
+                            <form action="{{route('admin.thoikhoabieu.import')}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="file" accept=".xlsx"><br>
+                                <input type="submit" value="Import file excel" name="import_csv" class="btn btn-warning">
+                            </form>
+                        </div>
+                    </div>
                 </div>
+        </div>
 
-                <div style="margin-top: 30px;"></div>
-                <thead>
-                    <tr>
-                        
-                        <th>Thứ</th>
-                        <th>Tên phòng</th>
-                        <th>Môn học</th>
-                        <th>Tiết</th>
-                        <th>Số lượng máy sử dụng</th>
-                        <th>Học kỳ</th>
-                        <th>Hành động</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($thoikhoabieu as $key => $item)
-                    <tr>
-                        
-                        <td>{{$item->thu}}</td>
-                        <td>{{$item->phong->phong_ten}}</td>
-                        <td>{{$item->monhoc->monhoc_ten}}</td>
-                        <td>{{$item->tiet->tiet_ten}}</td>
-                        <td>{{$item->soluongmaysudung}}</td>
-                        <td>{{$item->hocky->hocky_ten}}</td>
-                        <td>
-                            <a href="{{route('admin.thoikhoabieu.edit', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
-                            Edit
-                            </a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class=" col-sm-12 text-right text-center-xs mt-2">
-                <div class="pagination d-flex justify-content-center"> {{$thoikhoabieu->links('paginationlinks')}}</div>
-            </div>
+        <div style="margin-top: 30px;"></div>
+        <thead>
+            <tr>
+
+                <th>Thứ</th>
+                <th>Tên phòng</th>
+                <th>Môn học</th>
+                <th>Tiết</th>
+                <th>Số lượng máy sử dụng</th>
+                <th>Học kỳ</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($thoikhoabieu as $key => $item)
+            <tr>
+
+                <td>{{$item->thu}}</td>
+                <td>{{$item->phong->phong_ten}}</td>
+                <td>{{$item->monhoc->monhoc_ten}}</td>
+                <td>{{$item->tiet->tiet_ten}}</td>
+                <td>{{$item->soluongmaysudung}}</td>
+                <td>{{$item->hocky->hocky_ten}}</td>
+                <td>
+                    <a href="{{route('admin.thoikhoabieu.edit', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+        </table>
+        <div class=" col-sm-12 text-right text-center-xs mt-2">
+            <div class="pagination d-flex justify-content-center"> {{$thoikhoabieu->links('paginationlinks')}}</div>
         </div>
     </div>
-    @endsection
+</div>
+@endsection

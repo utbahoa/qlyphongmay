@@ -103,11 +103,6 @@
                <i class="fas fa-fw fa-table"></i>
                <span>Cập nhật thông tin</span></a>
        </li>
-       <li class="nav-item">
-           <a class="nav-link" href="{{route('student.tkbsv')}}">
-               <i class="fas fa-fw fa-table"></i>
-               <span>Xem thời khóa biểu</span></a>
-       </li>
 
        <li class="nav-item">
            <a class="nav-link" href="{{route('student.computer-register.index')}}">
@@ -129,11 +124,6 @@
            <a class="nav-link" href="{{route('teacher.information')}}">
                <i class="fas fa-fw fa-table"></i>
                <span>Cập nhật thông tin</span></a>
-       </li>
-       <li class="nav-item">
-           <a class="nav-link" href="{{route('teacher.thoikhoabgv')}}">
-               <i class="fas fa-fw fa-table"></i>
-               <span>Xem thời khóa biểu</span></a>
        </li>
        <li class="nav-item">
            <a class="nav-link" href="{{route('teacher.computer-register.index')}}">

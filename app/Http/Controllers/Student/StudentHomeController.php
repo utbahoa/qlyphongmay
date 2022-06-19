@@ -14,7 +14,6 @@ use App\Models\May;
 use App\Models\MonHoc;
 use App\Models\DanhSachDangKy;
 use App\Models\ThoiKhoaBieu;
-use App\Models\TKBSV;
 use App\Models\ThongBao;
 use App\Models\PhanHoi;
 
@@ -128,13 +127,7 @@ class StudentHomeController extends Controller
 
                 //Check lịch học
                 $thu_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
-                $thoikhoabieu_sv = TKBSV::where('thu', $thu_convert)
-                    ->where('tiet_id', $tiet_id)
-                    ->count();
-                if ($thoikhoabieu_sv > 0) {
-                    Toastr::error('Trùng lịch học của bạn', 'Thất bại');
-                    return redirect()->back();
-                }
+              
 
                 $user_id =  Auth::user()->id;
                 $check_dangky = DanhSachDangKy::where('danhsach_thoigiansd',  $danhsach_thoigiansd)
@@ -253,13 +246,5 @@ class StudentHomeController extends Controller
         }
     }
 
-    public function tkbsv()
-    {
-        $student_id = Auth::id();
-        $page_title = 'Thời khóa biểu';
-        $monhoc = MonHoc::orderBy('id', 'asc')->get();
-        //tkbsv::orderBy('id', 'asc')->where('student_id', $student_id)->get();
-        $tkbsv = tkbsv::orderBy('id', 'asc')->where('user_id', $student_id)->get();
-        return view('student.thoikhoabieu.index', compact('page_title', 'tkbsv', 'monhoc'));
-    }
+   
 }

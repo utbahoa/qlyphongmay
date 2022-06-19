@@ -10,7 +10,6 @@ use App\Models\Nganh;
 use App\Models\May;
 use App\Models\Lop;
 use App\Models\Tiet;
-use App\Models\TKBGV;
 use App\Models\PhanHoi;
 use App\Models\MonHoc;
 use App\Models\Phong;
@@ -109,14 +108,6 @@ class TeacherHomeController extends Controller
                 ];
                 //check lịch dạy giảng viên
                 $thu_convert = (Carbon::parse($danhsach_thoigiansd)->weekday()) + 1;
-                $thoikhoabieu_gv = TKBGV::where('thu', $thu_convert)
-                ->where('tiet_id', $tiet_id)
-                //->where('phong_id',  $phong_after_check_id)
-                ->count();
-                if($thoikhoabieu_gv > 0) {
-                    Toastr::error('Trùng lịch dạy của bạn', 'Thất bại');
-                    return redirect()->back();
-                }
 
                 //Check sinh giảng đã đăng ký chưa 
                 $user_id =  Auth::user()->id;
@@ -224,13 +215,4 @@ class TeacherHomeController extends Controller
         
     }
 
-    public function thoikhoabgv()
-    {   
-        $teacher_id = Auth::id();
-        $page_title = 'Thời khóa biểu';
-        $monhoc = MonHoc::orderBy('id','asc')->get();
-        //tkbsv::orderBy('id', 'asc')->where('student_id', $student_id)->get();
-        $thoikhoabgv = tkbgv::orderBy('id', 'asc')->where('user_id', $teacher_id )->get();
-        return view('teacher.thoikhoabieu.index', compact('page_title','thoikhoabgv','monhoc'));
-    }
 }
