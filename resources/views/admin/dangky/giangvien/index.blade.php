@@ -57,6 +57,9 @@
                             <a href="{{route('admin.dangky.giangvien.get_computer', $item->id)}}" class="btn btn-success text-uppercase" title="Duyệt">
                                 Duyệt
                             </a>
+                            <!-- <a href="" class="btn btn-danger text-uppercase" title="Duyệt">
+                                Từ chối
+                            </a> -->
                             @else
                             <a href="#" class="btn btn-danger text-uppercase" title="Sửa">
                                 Đã duyệt
@@ -67,6 +70,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class=" col-sm-12 text-right text-center-xs mt-2">
+                <div class="pagination d-flex justify-content-center"> {{$danhsach->links('paginationlinks')}}</div>
+            </div>
     </div>
 </div>
 @endsection

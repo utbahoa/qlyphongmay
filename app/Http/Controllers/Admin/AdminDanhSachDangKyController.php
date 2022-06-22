@@ -25,7 +25,7 @@ class AdminDanhSachDangKyController extends Controller
     {
         $page_title = 'Đăng ký sinh viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('quyen', '=', '2')->where('danhsach_tinhtrang', 0)->get();
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('quyen', '=', '2')->where('danhsach_tinhtrang', 0)->paginate(7);
         return view('admin.dangky.sinhvien.index', compact('page_title', 'user', 'danhsach'));
     }
 
@@ -146,6 +146,7 @@ class AdminDanhSachDangKyController extends Controller
                 ];
                 ChiTietDangKy::create($chitiet_data);
 
+                
                 // $thongbao_data = [
                 //     date_default_timezone_set('Asia/Ho_Chi_Minh'),
                 //     'user_id' => $request->user_id,
@@ -178,7 +179,7 @@ class AdminDanhSachDangKyController extends Controller
     {
         $page_title = 'Đăng ký giảng viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with('tiet', 'phong')->where('quyen', '=', '3')->where('danhsach_tinhtrang', 0)->get();
+        $danhsach = DanhSachDangKy::with('tiet', 'phong')->where('quyen', '=', '3')->where('danhsach_tinhtrang', 0)->paginate(7);
         return view('admin.dangky.giangvien.index', compact('page_title', 'user', 'danhsach'));
     }
 
@@ -249,7 +250,7 @@ class AdminDanhSachDangKyController extends Controller
 
         //Check số lượng máy đăng ký > số lượng máy còn trống
         if($soluongconlai <  $danhsach_soluong) {
-            Toastr::error('Không đủ số lượng máy yêu cầu', 'Thất bại');
+            Toastr::error('Không đủ số lượng máy yêu cầu', 'Không thể duyệt');
             return redirect()->back();
         }
 

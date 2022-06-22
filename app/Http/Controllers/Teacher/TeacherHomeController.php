@@ -84,7 +84,7 @@ class TeacherHomeController extends Controller
 
         //Check số phòng lớn hơn 1
         if (count($check_phong) > 1) {
-            Toastr::error('Giảng viên chỉ được đăng ký một phòng', 'Thất bại');
+            Toastr::warning('Chỉ được đăng ký một phòng!!');
             return redirect()->back();
         } else {
             foreach ($check_phong as $key => $item) {
@@ -156,7 +156,7 @@ class TeacherHomeController extends Controller
                         return redirect()->route('teacher.computer-register.index');
                     }
                 } else {
-                    Toastr::error('Đã đăng ký', 'Thất bại');
+                    Toastr::warning('Tiết đó đã đăng ký!!', 'Vui lòng chọn lại');
                     return redirect()->back();
                 }
             }
@@ -170,9 +170,17 @@ class TeacherHomeController extends Controller
         $user = User::all();
         $tiet = Tiet::all();
         $phong = Phong::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('user_id', $user_id)->get();
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('user_id', $user_id)->paginate(6);
         return view('teacher.register-history.index', compact('page_title', 'user', 'tiet', 'phong', 'danhsach'));
     }
+
+    public function destroy($id) {
+
+        DanhSachDangKy::find($id)->delete();
+        Toastr::success('Đã hủy yêu cầu đăng ký', 'Thành công');
+        return redirect()->back();
+    }
+
 
     public function registerResult($id)
     {

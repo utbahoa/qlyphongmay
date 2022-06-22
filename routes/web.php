@@ -192,6 +192,7 @@ Route::namespace('Teacher')->group(function () {
                 Route::get('/register-result/{id}', [TeacherHomeController::class, 'registerResult'])->name('teacher.computer-register.register-result');
                 Route::get('/register-feedback/{id}', [TeacherHomeController::class, 'registerFeedback'])->name('teacher.computer-register.register-feedback');
                 Route::post('/store-feedback', [TeacherHomeController::class, 'storeFeedback'])->name('teacher.computer-register.store-feedback');
+                Route::get('/delete/{id}', [TeacherHomeController::class, 'destroy'])->name('teacher.computer-register.destroy');
             });
         });
     });

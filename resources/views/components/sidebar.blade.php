@@ -3,10 +3,7 @@
 
        <!-- Sidebar - Brand -->
        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-           <div class="sidebar-brand-icon rotate-n-15">
-               <i class="fas fa-laugh-wink"></i>
-           </div>
-           <div class="sidebar-brand-text mx-3">Admin</div>
+           <div class="sidebar-brand-text mx-3">UTE Đà Nẵng</div>
        </a>
 
        <!-- Divider -->
@@ -24,8 +21,8 @@
        @can('sinhvien')
        <li class="nav-item active">
            <a class="nav-link" href="{{route('student.home')}}">
-               <i class="fas fa-fw fa-tachometer-alt"></i>
-               <span>Dashboard</span></a>
+               
+           <span style="font-size:25px">Trang chủ</span></a>
        </li>
        @endcan
 
@@ -33,7 +30,7 @@
        <li class="nav-item active">
            <a class="nav-link" href="{{route('teacher.home')}}">
                <i class="fas fa-fw fa-tachometer-alt"></i>
-               <span>Dashboard</span></a>
+               <span style="font-size:25px">Trang chủ</span></a>
        </li>
        @endcan
 
@@ -101,20 +98,21 @@
        <li class="nav-item">
            <a class="nav-link" href="{{route('student.information')}}">
                <i class="fas fa-fw fa-table"></i>
-               <span>Cập nhật thông tin</span></a>
+               <span style="font-size:17px ;">Cập nhật thông tin</span>
+            </a>
        </li>
 
        <li class="nav-item">
            <a class="nav-link" href="{{route('student.computer-register.index')}}">
                <i class="fas fa-fw fa-table"></i>
-               <span>Đăng ký máy</span>
+               <span style="font-size:17px ;">Đăng ký máy</span>
            </a>
        </li>
 
        <li class="nav-item">
            <a class="nav-link" href="{{route('student.computer-register.register-history')}}">
                <i class="fas fa-fw fa-table"></i>
-               <span>Xem kết quả đăng ký</span>
+               <span style="font-size:17px ;">Xem kết quả đăng ký</span>
            </a>
        </li>
        @endcan
@@ -123,18 +121,21 @@
        <li class="nav-item">
            <a class="nav-link" href="{{route('teacher.information')}}">
                <i class="fas fa-fw fa-table"></i>
-               <span>Cập nhật thông tin</span></a>
+               <span style="font-size:17px ;">Cập nhật thông tin</span>
+            </a>
        </li>
+
        <li class="nav-item">
            <a class="nav-link" href="{{route('teacher.computer-register.index')}}">
                <i class="fas fa-fw fa-table"></i>
-               <span>Đăng ký máy</span>
+               <span style="font-size:17px ;">Đăng ký máy</span>
            </a>
        </li>
+
        <li class="nav-item">
            <a class="nav-link" href="{{route('teacher.computer-register.register-history')}}">
                <i class="fas fa-fw fa-table"></i>
-               <span>Xem kết quả đăng ký</span>
+               <span style="font-size:17px ;">Xem kết quả đăng ký</span>
            </a>
        </li>
        @endcan

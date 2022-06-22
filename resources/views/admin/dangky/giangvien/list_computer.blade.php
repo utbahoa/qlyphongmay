@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="col-md-12 d-flex justify-content-center">
+                    <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success btn-lg">Duyệt</button>
                     </div>
                 </form>

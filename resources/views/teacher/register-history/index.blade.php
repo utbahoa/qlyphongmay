@@ -33,36 +33,44 @@
                         <td>{{$item->danhsach_soluong}}</td>
                         <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td>     
                         <td>
-                            @if($item->danhsach_tinhtrang == 0)
-                                Chưa duyệt
+                        @if($item->danhsach_tinhtrang == 0)
+                            <span href="" style="color:red" class="">Đang đợi duyệt</span>
                             @else
-                            <a href="" style="color:blue; font-weight:bold" class="text-primary">Đã duyệt</a>
+                            <span href="" style="color:blue; font-weight:bold" class="text-primary">Đã duyệt</span>
                             @endif
                         </td>
                         <td>
                             @if($item->danhsach_nguoiduyet == NULL)
-                                Chưa có người duyệt
+                            <span href="" style="color:red" class="">Đang đợi duyệt</span>
                             @else
-                                {{$item->danhsach_nguoiduyet}}
+                            {{$item->danhsach_nguoiduyet}}
+                                
                             @endif
                         </td>    
                         <td>
                             @if($item->danhsach_thoigianduyet == 0)
-                                Chưa duyệt
+                            <span href="" style="color:red" class="">Đang đợi duyệt</span>
                             @else
-                                {{$item->danhsach_thoigianduyet}}
+                            {{date('d/m/Y H:s', strtotime($item->danhsach_thoigianduyet));}}                        
                             @endif
                         </td>    
                         <td>
-                            <a href="{{route('teacher.computer-register.register-result', $item->id)}}" class="btn btn-success text-uppercase" title="Xem">
-                                Xem
+                            @if($item->danhsach_tinhtrang  == 0 )
+                        <a href="{{route('teacher.computer-register.destroy',$item->id)}}" class="btn btn-primary text-uppercase " title="Xóa" onclick="return confirm('Bạn có muốn hủy yêu cầu này không?')">
+                                Hủy yêu cầu
                             </a>
+                        @else
+                            <a href="{{route('teacher.computer-register.register-result', $item->id)}}" class="btn btn-success text-uppercase" title="Xem">
+                                Xem chi tiết
+                            </a>
+                        @endif
                         </td>              
                     </tr>
                     @endforeach
                     </tr>
                 </tbody>
             </table>
+            <div class="pagination d-flex justify-content-center"> {{$danhsach->links('paginationlinks')}}</div>
         </div>
     </div>
     @endsection

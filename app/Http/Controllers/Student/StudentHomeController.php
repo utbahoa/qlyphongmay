@@ -101,7 +101,7 @@ class StudentHomeController extends Controller
         }
         //Đếm mảng nếu > 1 thì báo lỗi
         if (count($check_phong) > 1) {
-            Toastr::error('Sinh viên chỉ được đăng ký một phòng', 'Thất bại');
+            Toastr::Warning('Chỉ được đăng ký một phòng!!');
             return redirect()->back();
         } else {
             //Mảng ở đây chỉ còn 1 cái Phong_id nên cần lặp ra vì đã khai báo là mảng nên mới cần lặp
@@ -177,7 +177,7 @@ class StudentHomeController extends Controller
                         return redirect()->route('student.computer-register.index');
                     }
                 } else {
-                    Toastr::error('Tiết đó đã đăng ký', 'Thất bại');
+                    Toastr::warning('Tiết đó đã đăng ký!!', 'Vui lòng chọn lại');
                     return redirect()->back();
                 }
             }
@@ -193,9 +193,17 @@ class StudentHomeController extends Controller
         $phong = Phong::all();
         $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong', 'chitietdangky')
             ->where('user_id', $user_id)
-            ->get();
+            ->paginate(6);
         return view('student.register-history.index', compact('page_title', 'user', 'user_id', 'tiet', 'phong', 'danhsach'));
     }
+
+    public function destroy($id) {
+
+        DanhSachDangKy::find($id)->delete();
+        Toastr::success('Đã hủy yêu cầu đăng ký', 'Thành công');
+        return redirect()->back();
+  
+}  
 
     public function registerResult($id)
     {
