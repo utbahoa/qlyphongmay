@@ -10,7 +10,7 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên sinh viên</th>
+                        <th>Tên giảng viên</th>
                         <th>Tiết</th>
                         <th>Phòng</th>
                         <th>Thời gian sử dụng </th>
@@ -36,7 +36,7 @@
                             @elseif($item->danhsach_tinhtrang == 1)
                             <span href="" style="color:blue; font-weight:bold" class="text-error">Đã được chấp nhận</span>
                             @else
-                            <span href="" style="color:red; font-weight:bold" class="text-error">Phòng đã hết máy</span>
+                            <span href="" style="color:red; font-weight:bold" class="text-error">Phòng không đủ máy</span>
                             @endif
                         </td>
                         <td>

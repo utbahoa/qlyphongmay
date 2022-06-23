@@ -38,6 +38,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="pagination d-flex justify-content-center"> {{$chitiet->links('paginationlinks')}}</div>
     </div>
 </div>
 @endsection

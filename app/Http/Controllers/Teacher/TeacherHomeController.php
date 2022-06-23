@@ -188,7 +188,7 @@ class TeacherHomeController extends Controller
     public function registerResult($id)
     {
         $page_title = 'Xem kết quả';
-        $chitiet = ChiTietDangKy::with('danhsachdangky', 'phong')->where('danhsach_id', $id)->get();
+        $chitiet = ChiTietDangKy::with('danhsachdangky', 'phong')->where('danhsach_id', $id)->paginate(6);
         return view('teacher.register-result.index', compact('page_title', 'chitiet'));
     }
 

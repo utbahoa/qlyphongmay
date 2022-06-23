@@ -35,7 +35,7 @@
                             @elseif($item->danhsach_tinhtrang == 1)
                             <span href="" style="color:blue; font-weight:bold" class="text-error">Đã được chấp nhận</span>
                             @else
-                            <span href="" style="color:red; font-weight:bold" class="text-error">Phòng đã hết máy</span>
+                            <span href="" style="color:red; font-weight:bold" class="text-error">Không đủ máy</span>
                             @endif
                         </td>
                                         
@@ -45,7 +45,7 @@
                                 Duyệt
                             </a>
                             @else
-                            <span href="" style="color:red; font-weight:bold" class="text-error">Phòng đã hết máy</span>
+                            <span href="#" style=" font-weight:bold" class="btn btn-danger text-uppercase" title="error">Không đủ máy</span>
                             @endif
                         </td>
                     </tr>
