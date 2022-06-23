@@ -193,6 +193,7 @@ class StudentHomeController extends Controller
         $phong = Phong::all();
         $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong', 'chitietdangky')
             ->where('user_id', $user_id)
+            ->orderBy('id','desc')
             ->paginate(6);
         return view('student.register-history.index', compact('page_title', 'user', 'user_id', 'tiet', 'phong', 'danhsach'));
     }

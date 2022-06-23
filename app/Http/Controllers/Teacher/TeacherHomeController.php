@@ -170,7 +170,10 @@ class TeacherHomeController extends Controller
         $user = User::all();
         $tiet = Tiet::all();
         $phong = Phong::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('user_id', $user_id)->paginate(6);
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')
+        ->where('user_id', $user_id)
+        ->orderBy('id','desc')
+        ->paginate(6);
         return view('teacher.register-history.index', compact('page_title', 'user', 'tiet', 'phong', 'danhsach'));
     }
 
@@ -190,7 +193,7 @@ class TeacherHomeController extends Controller
     }
 
     public function registerFeedback($id) {
-        $page_title = 'Phản hồi sinh viên';
+        $page_title = 'Phản hồi giảng viên';
         $chitiet = ChiTietDangKy::where('danhsach_id', $id)->first();
         $phong = Phong::where('id', $chitiet->phong_id)->first();
         $phong_ten = $phong->phong_ten;
@@ -217,9 +220,16 @@ class TeacherHomeController extends Controller
             'phanhoi_noidung' => $request->phanhoi_noidung,
             'phanhoi_thoigian' => now()
         ];
-        PhanHoi::create($data);
-        Toastr::success('Gửi phản hồi thành công', 'Thành công');
-        return redirect()->back();
+        if (PhanHoi::where('may_ten', '=', $request->may_ten)
+            ->count() > 0
+        ) {
+            Toastr::error('message', 'Bạn đã báo cáo máy này');
+            return redirect()->back();
+        } else {
+            PhanHoi::create($data);
+            Toastr::success('Gửi phản hồi thành công', 'Thành công');
+            return redirect()->back();
+        }
         
     }
 

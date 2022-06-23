@@ -25,7 +25,11 @@ class AdminDanhSachDangKyController extends Controller
     {
         $page_title = 'Đăng ký sinh viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')->where('quyen', '=', '2')->where('danhsach_tinhtrang', 0)->paginate(7);
+        $danhsach = DanhSachDangKy::with('user', 'tiet', 'phong')
+        ->where('quyen', '=', '2')
+        ->whereNotIn('danhsach_tinhtrang', [1])
+        ->orderBy('id','desc')
+        ->paginate(7);
         return view('admin.dangky.sinhvien.index', compact('page_title', 'user', 'danhsach'));
     }
 
@@ -90,7 +94,15 @@ class AdminDanhSachDangKyController extends Controller
         //Check số lượng máy cđăng ký > số lượng máy còn trống
         if($soluongconlai <  $danhsach_soluong) {
             Toastr::error('Không đủ số lượng máy yêu cầu', 'Thất bại');
+            $danhsach->update([
+                'danhsach_tinhtrang' => 2
+            ]);
             return redirect()->back();
+        }
+
+        if($danhsach_thoigiansd < now()){
+            Toastr::error('Yêu cầu đã quá hạn', 'Không thể duyệt');
+            return redirect()->back();  
         }
 
 
@@ -179,7 +191,11 @@ class AdminDanhSachDangKyController extends Controller
     {
         $page_title = 'Đăng ký giảng viên';
         $user = User::all();
-        $danhsach = DanhSachDangKy::with('tiet', 'phong')->where('quyen', '=', '3')->where('danhsach_tinhtrang', 0)->paginate(7);
+        $danhsach = DanhSachDangKy::with('tiet', 'phong')
+        ->where('quyen', '=', '3')
+        ->whereNotIn('danhsach_tinhtrang', [1])
+        ->orderBy('id','desc')
+        ->paginate(7);
         return view('admin.dangky.giangvien.index', compact('page_title', 'user', 'danhsach'));
     }
 
@@ -251,9 +267,16 @@ class AdminDanhSachDangKyController extends Controller
         //Check số lượng máy đăng ký > số lượng máy còn trống
         if($soluongconlai <  $danhsach_soluong) {
             Toastr::error('Không đủ số lượng máy yêu cầu', 'Không thể duyệt');
-            return redirect()->back();
+            $danhsach->update([
+                'danhsach_tinhtrang' => 2
+            ]);
+            return redirect()->back();    
         }
 
+        if($danhsach_thoigiansd < now()){
+            Toastr::error('Yêu cầu đã quá hạn', 'Không thể duyệt');
+            return redirect()->back();  
+        }
 
         return view('admin.dangky.giangvien.list_computer', compact(
             'page_title',

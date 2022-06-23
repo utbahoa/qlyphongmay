@@ -11,54 +11,41 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Tên sinh viên</th>                       
+                        <th>Tên Sinh viên</th>                       
                         <th>Tiết</th>
                         <th>Phòng</th>
                         <th>Thời gian sử dụng</th>   
+                        <th>Số lượng</th>
                         <th>Tình trạng</th>   
-                        <th>Người duyệt</th>
-                        <th>Thời gian duyệt</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>  
                     @foreach($danhsach as $key => $item)  
                     <tr>
-                        <td>{{$item->id}}</td>
-                        <td>{{$item->user->name ?? 'None'}}</td> 
-                        <td>{{$item->tiet->tiet_ten}}</td> 
-                        <td>{{$item->phong->phong_ten}}</td>    
-                        <td>{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td>      
+                        <td href="" style="font-weight:bold" class="text-error">{{$item->id}}</td>
+                        <td href="" style="font-weight:bold" class="text-error">{{$item->user->name ?? 'None'}}</td> 
+                        <td href="" style="font-weight:bold" class="text-error">{{$item->tiet->tiet_ten}}</td> 
+                        <td href="" style="font-weight:bold" class="text-error">{{$item->phong->phong_ten}}</td>    
+                        <td href="" style="font-weight:bold" class="text-error">{{date('d/m/Y', strtotime($item->danhsach_thoigiansd));}}</td>    
+                        <td href="" style="font-weight:bold" class="text-error">{{$item->danhsach_soluong}} <span>máy</span></td>     
                         <td>
                             @if($item->danhsach_tinhtrang == 0)
-                                <p class="text-primary"> Chưa duyệt</p>
+                            <span href="" style="color:orange ; font-weight:bold" class="text-error">Đang đợi duyệt</span>
+                            @elseif($item->danhsach_tinhtrang == 1)
+                            <span href="" style="color:blue; font-weight:bold" class="text-error">Đã được chấp nhận</span>
                             @else
-                                <p class="text-danger"> Đã duyệt</p>
+                            <span href="" style="color:red; font-weight:bold" class="text-error">Phòng đã hết máy</span>
                             @endif
                         </td>
-                        <td>
-                            @if($item->danhsach_nguoiduyet == NULL)
-                                 <p class="text-primary"> Chưa duyệt</p>
-                            @else
-                                {{$item->danhsach_nguoiduyet}}
-                            @endif
-                        </td>    
-                        <td>
-                            @if($item->danhsach_thoigianduyet == 0)
-                                <p class="text-primary"> Chưa duyệt</p>
-                            @else
-                                {{$item->danhsach_thoigianduyet}}
-                            @endif
-                        </td>                       
+                                        
                         <td>
                             @if($item->danhsach_tinhtrang == 0)
-                            <a href="{{route('admin.dangky.sinhvien.get_computer', $item->id)}}" class="btn btn-success text-uppercase" title="Sửa">
+                            <a href="{{route('admin.dangky.sinhvien.get_computer', $item->id)}}" class="btn btn-success text-uppercase" title="Duyệt">
                                 Duyệt
                             </a>
                             @else
-                            <a href="#" class="btn btn-danger text-uppercase" title="Sửa">
-                                Đã duyệt
-                            </a>
+                            <span href="" style="color:red; font-weight:bold" class="text-error">Phòng đã hết máy</span>
                             @endif
                         </td>
                     </tr>

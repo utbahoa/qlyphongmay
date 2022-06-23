@@ -28,8 +28,8 @@
                 </span>
             </div>
             <hr class="mt-2">
-            <input type="submit" class="btn btn-info mr-2 mt-2" value="Thêm">
-            <a href="" class="btn btn-danger mt-2">Quay lại</a>
+            <input type="submit" class="btn btn-info mr-2 mt-2" value="Gửi">
+            <a href="{{route('teacher.computer-register.register-history')}}" class="btn btn-danger mt-2">Quay lại</a>
         </form>
     </div>
 </div>

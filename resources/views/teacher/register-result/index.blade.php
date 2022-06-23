@@ -26,11 +26,11 @@
                         <td> 
                         @if($item->thoigiansd  < date('Y-m-d'))
                             <a href="{{route('teacher.computer-register.register-feedback', $item->danhsach_id)}}" class="btn btn-success text-uppercase" title="gui">
-                                Báo cáo
+                                Gửi phản hồi
                             </a>
                         @else
                         <a href="#" class="btn btn-danger text-uppercase" title="gui">
-                                Báo Cáo
+                                Gửi phản hồi
                         </a>
                         @endif
                         </td>    
